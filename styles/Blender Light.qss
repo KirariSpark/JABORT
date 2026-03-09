@@ -43,7 +43,7 @@ QSpinBox, QDoubleSpinBox {
 }
 
 QSpinBox::up-button, QDoubleSpinBox::up-button {
-    image: url(Icons/SP_ArrowUp.png);
+    image: url(assets/icons/SP_ArrowUp.png);
     border-top-right-radius: 5px;
     background-color: #dbdbdb;
     width: 18px;
@@ -52,7 +52,7 @@ QSpinBox::up-button, QDoubleSpinBox::up-button {
 }
 
 QSpinBox::down-button, QDoubleSpinBox::down-button {
-    image: url(Icons/SP_ArrowDown.png);
+    image: url(assets/icons/SP_ArrowDown.png);
     border-bottom-right-radius: 5px;
     background-color: #dbdbdb;
     width: 18px;
@@ -215,7 +215,7 @@ QCheckBox::indicator {
 }
 
 QCheckBox::indicator:checked {
-    image: url(Icons/cc-yes-crude.png);
+    image: url(assets/icons/cc-yes-crude.png);
     background-color: #5680c2;
     border-color: #4d4d4d;
 }
@@ -245,13 +245,13 @@ QComboBox::drop-down {
 }
 
 QComboBox::down-arrow {
-    image: url(Icons/SP_ArrowDown.png);
+    image: url(assets/icons/SP_ArrowDown.png);
     width: 25px;
     height: 25px;
 }
 
 QComboBox::down-arrow:on {
-    image: url(Icons/SP_ArrowUp.png);
+    image: url(assets/icons/SP_ArrowUp.png);
 }
 
 QComboBox QAbstractItemView {

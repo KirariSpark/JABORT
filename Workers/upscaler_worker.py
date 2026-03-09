@@ -5,8 +5,8 @@ from PySide6.QtWidgets import QMessageBox
 
 from Core import log_manager
 from Core.error_codes import ErrorCode
-from Tools.MediaProcessing import ComfyUpscaler
-from Tools.Utils import utils
+from modules.media_proc import ComfyUpscaler
+from modules.utils import utils
 
 logger = log_manager.get_logger(__name__)
 

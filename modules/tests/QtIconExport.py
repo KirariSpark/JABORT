@@ -9,7 +9,7 @@ from PySide6.QtWidgets import QApplication, QStyle, \
     QWidget
 
 
-def export_all_icons(output_dir: str = "Icons", size: QSize = QSize(64, 64)):
+def export_all_icons(output_dir: str = "icons", size: QSize = QSize(64, 64)):
     """
     导出所有QStyle图标到指定目录
 

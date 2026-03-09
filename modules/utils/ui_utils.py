@@ -7,7 +7,7 @@ from PySide6.QtWidgets import QComboBox, QMenu, QListWidget, QMessageBox, QWidge
 
 from Core import log_manager
 from Core.error_codes import ErrorCode
-from Tools.Utils import utils
+from modules.utils import utils
 
 logger = log_manager.get_logger(__name__)
 

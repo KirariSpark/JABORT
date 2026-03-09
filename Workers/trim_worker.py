@@ -5,8 +5,8 @@ from PySide6.QtWidgets import QMessageBox
 
 from Core import log_manager
 from Core.error_codes import ErrorCode
-from Tools.Utils import utils
-from Tools.MediaProcessing import VideoTrim
+from modules.utils import utils
+from modules.media_proc import VideoTrim
 
 logger = log_manager.get_logger(__name__)
 

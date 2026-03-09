@@ -4,12 +4,12 @@ import subprocess
 import send2trash
 from PySide6.QtWidgets import QApplication, QWidget, QMessageBox
 
-from Tools.TextProcessing import CropText, CalSimilarity, JsonSorter
-from Tools.Utils import ui_utils
+from modules.text_proc import JsonSorter, CalSimilarity, CropText
+from modules.utils import ui_utils
 from Workers import *
 from ui_app import Ui_Form
 
-with open("Style\Blue Archive.qss", "r", encoding="utf-8") as f:
+with open("styles\Blue Archive.qss", "r", encoding="utf-8") as f:
     stylesheet = f.read()
 
 
@@ -19,7 +19,7 @@ class MyWindow(QWidget, Ui_Form):
         super().__init__()
         self.setupUi(self)
         self.setStyleSheet(stylesheet)
-        self.ThemeDropdown.addItems([os.path.join("Style", item) for item in os.listdir("Style")])
+        self.ThemeDropdown.addItems([os.path.join("styles", item) for item in os.listdir("styles")])
 
         # 工作线程实例
         self.upscaler_worker = None
@@ -107,7 +107,7 @@ class MyWindow(QWidget, Ui_Form):
         self.ClearLog.clicked.connect(self.clear_log)
         # 计算相似度信号
         self.CalSimModelRefresh.clicked.connect(lambda: ui_utils.refresh_combobox(
-            target_widget=self.CalSimModelDropdown, path="models", include_path=True, parent=self
+            target_widget=self.CalSimModelDropdown, path="resources/models", include_path=True, parent=self
         ))
         self.CalSimUnload.clicked.connect(lambda: ui_utils.show_message_box(
             self, content=CalSimilarity.unload_model(), icon=QMessageBox.Icon.Information
@@ -120,7 +120,7 @@ class MyWindow(QWidget, Ui_Form):
         self.JsonSorterRun.clicked.connect(self.json_sorter_run)
         # Qt内置图标相关信号
         self.QtIconsExport.clicked.connect(
-            lambda: subprocess.run(["python", os.path.join("Tools", "TestTools", "QtIconExport.py"), "--export"])
+            lambda: subprocess.run(["python", os.path.join("Tools", "tests", "QtIconExport.py"), "--export"])
         )
 
 

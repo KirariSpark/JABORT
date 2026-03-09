@@ -3,9 +3,9 @@
 注意：dev分支非常不稳定，它就是一块试验田。事实上目前为止main分支也不太稳定，毕竟不久前这个项目还是我自己的试验田。  
 如题，原本只是个人用的一些小工具，后来想着做都做了，开源也没啥的
 
-| ![png2jpg.png](readme_assets/png2jpg.png)       | ![upscaler.png](readme_assets/upscaler.png) |
-|-------------------------------------------------|---------------------------------------------|
-| ![similarity.png](readme_assets/similarity.png) | ![flatten.png](readme_assets/flatten.png)   |
+| ![png2jpg.png](assets/readme/png2jpg.png)       | ![upscaler.png](assets/readme/upscaler.png) |
+|--------------------------------------------------------|----------------------------------------------------|
+| ![similarity.png](assets/readme/similarity.png) | ![flatten.png](assets/readme/flatten.png)   |
 
 ## 当前功能
 
@@ -33,4 +33,5 @@
 - [x] 把所有功能的反馈模式改为消息框
 - [x] 实现并应用统一的 ErrorCode 类
 - [ ] 为 ErrorCode 类增加 lvl 以实现等级区分，分清警告和错误
+- [ ] 把不同功能的界面分离开
 - [x] 新增：视频剪切

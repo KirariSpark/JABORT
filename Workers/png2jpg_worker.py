@@ -4,7 +4,7 @@ import send2trash
 from PySide6.QtCore import QThread, Signal
 from PySide6.QtWidgets import QMessageBox
 
-from Tools.Convertors import PNG2JPG
+from modules.conv import PNG2JPG
 from Core import log_manager
 from Core.error_codes import ErrorCode
 
