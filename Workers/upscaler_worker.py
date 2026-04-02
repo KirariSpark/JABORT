@@ -3,10 +3,10 @@ import os
 from PySide6.QtCore import QThread, Signal
 from PySide6.QtWidgets import QMessageBox
 
-from Core import log_manager
-from Core.error_codes import ErrorCode
-from Tools.MediaProcessing import ComfyUpscaler
-from Tools.Utils import utils
+from core import log_manager
+from core.error_codes import ErrorCode
+from modules.media_proc import ComfyUpscaler
+from modules.utils import utils
 
 logger = log_manager.get_logger(__name__)
 

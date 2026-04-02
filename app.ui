@@ -34,167 +34,23 @@
        <string>文件管理</string>
       </attribute>
       <layout class="QVBoxLayout" name="verticalLayout_2">
+       <property name="spacing">
+        <number>0</number>
+       </property>
+       <property name="leftMargin">
+        <number>0</number>
+       </property>
+       <property name="topMargin">
+        <number>0</number>
+       </property>
+       <property name="rightMargin">
+        <number>0</number>
+       </property>
+       <property name="bottomMargin">
+        <number>0</number>
+       </property>
        <item>
-        <widget class="QTabWidget" name="FileMgrChildTab">
-         <property name="currentIndex">
-          <number>0</number>
-         </property>
-         <property name="movable">
-          <bool>true</bool>
-         </property>
-         <widget class="QWidget" name="FlattenLayoyt">
-          <attribute name="title">
-           <string>展平</string>
-          </attribute>
-          <attribute name="toolTip">
-           <string>如果一个文件夹只有一个文件，那么把这个文件移动到其父级文件夹，并重命名为源文件夹的名称，重复运行直到没有可处理的文件</string>
-          </attribute>
-          <layout class="QVBoxLayout" name="verticalLayout_13">
-           <item>
-            <layout class="QHBoxLayout" name="FlattenDir">
-             <item>
-              <widget class="QPushButton" name="FlattenDirOpen">
-               <property name="text">
-                <string>打开</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QLineEdit" name="FlattenDirInput">
-               <property name="sizePolicy">
-                <sizepolicy hsizetype="Expanding" vsizetype="Minimum">
-                 <horstretch>0</horstretch>
-                 <verstretch>0</verstretch>
-                </sizepolicy>
-               </property>
-               <property name="placeholderText">
-                <string>从此处开始查找文件夹</string>
-               </property>
-               <property name="clearButtonEnabled">
-                <bool>true</bool>
-               </property>
-              </widget>
-             </item>
-            </layout>
-           </item>
-           <item>
-            <layout class="QHBoxLayout" name="FlattenBtns">
-             <item>
-              <widget class="QPushButton" name="FlattenRun">
-               <property name="sizePolicy">
-                <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
-                 <horstretch>0</horstretch>
-                 <verstretch>0</verstretch>
-                </sizepolicy>
-               </property>
-               <property name="text">
-                <string>运行</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QPushButton" name="FlattenStop">
-               <property name="enabled">
-                <bool>false</bool>
-               </property>
-               <property name="text">
-                <string>终止</string>
-               </property>
-              </widget>
-             </item>
-            </layout>
-           </item>
-           <item>
-            <spacer name="FlattenSpacer">
-             <property name="orientation">
-              <enum>Qt::Orientation::Vertical</enum>
-             </property>
-             <property name="sizeHint" stdset="0">
-              <size>
-               <width>0</width>
-               <height>0</height>
-              </size>
-             </property>
-            </spacer>
-           </item>
-          </layout>
-         </widget>
-         <widget class="QWidget" name="NewFlattenLayout">
-          <attribute name="title">
-           <string>展平（新）</string>
-          </attribute>
-          <attribute name="toolTip">
-           <string>基于树的新展平方式，以内存占用为代价，提高展平速度</string>
-          </attribute>
-          <layout class="QVBoxLayout" name="verticalLayout_17">
-           <item>
-            <layout class="QHBoxLayout" name="NewFlattenDir">
-             <item>
-              <widget class="QPushButton" name="NewFlattenDirOpen">
-               <property name="text">
-                <string>打开</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QLineEdit" name="NewFlattenDirInput">
-               <property name="placeholderText">
-                <string>从此处开始查找文件夹</string>
-               </property>
-               <property name="clearButtonEnabled">
-                <bool>true</bool>
-               </property>
-              </widget>
-             </item>
-            </layout>
-           </item>
-           <item>
-            <widget class="QProgressBar" name="NewFlattenProgress">
-             <property name="value">
-              <number>0</number>
-             </property>
-             <property name="textVisible">
-              <bool>false</bool>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <layout class="QHBoxLayout" name="NewFlattenBtns">
-             <item>
-              <widget class="QPushButton" name="NewFlattenRun">
-               <property name="text">
-                <string>运行</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QPushButton" name="NewFlattenStop">
-               <property name="enabled">
-                <bool>false</bool>
-               </property>
-               <property name="text">
-                <string>终止</string>
-               </property>
-              </widget>
-             </item>
-            </layout>
-           </item>
-           <item>
-            <spacer name="NewFlattenSpacer">
-             <property name="orientation">
-              <enum>Qt::Orientation::Vertical</enum>
-             </property>
-             <property name="sizeHint" stdset="0">
-              <size>
-               <width>0</width>
-               <height>0</height>
-              </size>
-             </property>
-            </spacer>
-           </item>
-          </layout>
-         </widget>
-        </widget>
+        <widget class="FileMgrWidget" name="FileMgr" native="true"/>
        </item>
       </layout>
      </widget>
@@ -524,424 +380,23 @@
        <string>媒体处理</string>
       </attribute>
       <layout class="QVBoxLayout" name="verticalLayout_5">
+       <property name="spacing">
+        <number>0</number>
+       </property>
+       <property name="leftMargin">
+        <number>0</number>
+       </property>
+       <property name="topMargin">
+        <number>0</number>
+       </property>
+       <property name="rightMargin">
+        <number>0</number>
+       </property>
+       <property name="bottomMargin">
+        <number>0</number>
+       </property>
        <item>
-        <widget class="QTabWidget" name="MediaProcessingChildTab">
-         <property name="currentIndex">
-          <number>0</number>
-         </property>
-         <property name="movable">
-          <bool>true</bool>
-         </property>
-         <widget class="QWidget" name="UpsLayout">
-          <attribute name="title">
-           <string>ComfyUI 图像放大</string>
-          </attribute>
-          <attribute name="toolTip">
-           <string>使用 ComfyUI API 批量放大图片
-图像路径前的 T 代表这个图片包含透明通道，L 代表这个图片的长宽比有些奇怪，可能是长截图或全景图</string>
-          </attribute>
-          <layout class="QVBoxLayout" name="verticalLayout_4">
-           <item>
-            <widget class="QLineEdit" name="UpsComfyUrl">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Expanding" vsizetype="Minimum">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="text">
-              <string>http://127.0.0.1:8188</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <layout class="QHBoxLayout" name="UpsModel">
-             <item>
-              <widget class="QComboBox" name="UpsModelDropdown">
-               <property name="sizePolicy">
-                <sizepolicy hsizetype="Expanding" vsizetype="Minimum">
-                 <horstretch>0</horstretch>
-                 <verstretch>0</verstretch>
-                </sizepolicy>
-               </property>
-               <property name="currentText">
-                <string/>
-               </property>
-               <property name="currentIndex">
-                <number>-1</number>
-               </property>
-               <property name="placeholderText">
-                <string>需要刷新</string>
-               </property>
-               <property name="frame">
-                <bool>true</bool>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QPushButton" name="UpsRefreshModel">
-               <property name="sizePolicy">
-                <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
-                 <horstretch>0</horstretch>
-                 <verstretch>0</verstretch>
-                </sizepolicy>
-               </property>
-               <property name="text">
-                <string>刷新</string>
-               </property>
-              </widget>
-             </item>
-            </layout>
-           </item>
-           <item>
-            <layout class="QHBoxLayout" name="UpsImg">
-             <item>
-              <widget class="QPushButton" name="UpsChooseImagePath">
-               <property name="sizePolicy">
-                <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
-                 <horstretch>0</horstretch>
-                 <verstretch>0</verstretch>
-                </sizepolicy>
-               </property>
-               <property name="text">
-                <string>打开</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QLineEdit" name="UpsImagePath">
-               <property name="sizePolicy">
-                <sizepolicy hsizetype="Expanding" vsizetype="Minimum">
-                 <horstretch>0</horstretch>
-                 <verstretch>0</verstretch>
-                </sizepolicy>
-               </property>
-               <property name="placeholderText">
-                <string>从此处开始查找图像</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QPushButton" name="UpsRecursive">
-               <property name="text">
-                <string>递归查找</string>
-               </property>
-               <property name="checkable">
-                <bool>true</bool>
-               </property>
-              </widget>
-             </item>
-            </layout>
-           </item>
-           <item>
-            <layout class="QHBoxLayout" name="UpsSaves">
-             <item>
-              <widget class="QPushButton" name="UpsSavePathOpen">
-               <property name="text">
-                <string>打开</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QLineEdit" name="UpsSavePath">
-               <property name="placeholderText">
-                <string>将图像保存到此处</string>
-               </property>
-              </widget>
-             </item>
-            </layout>
-           </item>
-           <item>
-            <layout class="QGridLayout" name="UpsOptions">
-             <item row="0" column="0">
-              <widget class="QSpinBox" name="UpsHeightThresholdSpin">
-               <property name="sizePolicy">
-                <sizepolicy hsizetype="Expanding" vsizetype="Minimum">
-                 <horstretch>0</horstretch>
-                 <verstretch>0</verstretch>
-                </sizepolicy>
-               </property>
-               <property name="buttonSymbols">
-                <enum>QAbstractSpinBox::ButtonSymbols::NoButtons</enum>
-               </property>
-               <property name="suffix">
-                <string> 像素</string>
-               </property>
-               <property name="prefix">
-                <string>高度阈值：</string>
-               </property>
-               <property name="maximum">
-                <number>3000</number>
-               </property>
-               <property name="value">
-                <number>1500</number>
-               </property>
-              </widget>
-             </item>
-             <item row="1" column="0">
-              <widget class="QSpinBox" name="UpsJPGThresholdSpin">
-               <property name="sizePolicy">
-                <sizepolicy hsizetype="Expanding" vsizetype="Minimum">
-                 <horstretch>0</horstretch>
-                 <verstretch>0</verstretch>
-                </sizepolicy>
-               </property>
-               <property name="buttonSymbols">
-                <enum>QAbstractSpinBox::ButtonSymbols::NoButtons</enum>
-               </property>
-               <property name="suffix">
-                <string> KB</string>
-               </property>
-               <property name="prefix">
-                <string>大小阈值：</string>
-               </property>
-               <property name="maximum">
-                <number>3000</number>
-               </property>
-               <property name="value">
-                <number>500</number>
-               </property>
-              </widget>
-             </item>
-             <item row="0" column="1">
-              <widget class="QSpinBox" name="UpsWidthThresholdSpin">
-               <property name="sizePolicy">
-                <sizepolicy hsizetype="Expanding" vsizetype="Minimum">
-                 <horstretch>0</horstretch>
-                 <verstretch>0</verstretch>
-                </sizepolicy>
-               </property>
-               <property name="buttonSymbols">
-                <enum>QAbstractSpinBox::ButtonSymbols::NoButtons</enum>
-               </property>
-               <property name="suffix">
-                <string> 像素</string>
-               </property>
-               <property name="prefix">
-                <string>宽度阈值：</string>
-               </property>
-               <property name="maximum">
-                <number>3000</number>
-               </property>
-               <property name="value">
-                <number>1500</number>
-               </property>
-              </widget>
-             </item>
-             <item row="1" column="1">
-              <widget class="QDoubleSpinBox" name="UpsDownscaleSpin">
-               <property name="sizePolicy">
-                <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
-                 <horstretch>0</horstretch>
-                 <verstretch>0</verstretch>
-                </sizepolicy>
-               </property>
-               <property name="buttonSymbols">
-                <enum>QAbstractSpinBox::ButtonSymbols::NoButtons</enum>
-               </property>
-               <property name="prefix">
-                <string>图像缩放为：</string>
-               </property>
-               <property name="suffix">
-                <string> 倍</string>
-               </property>
-               <property name="minimum">
-                <double>0.010000000000000</double>
-               </property>
-               <property name="maximum">
-                <double>1.000000000000000</double>
-               </property>
-               <property name="singleStep">
-                <double>0.010000000000000</double>
-               </property>
-               <property name="value">
-                <double>1.000000000000000</double>
-               </property>
-              </widget>
-             </item>
-            </layout>
-           </item>
-           <item>
-            <widget class="QProgressBar" name="UpsProgress">
-             <property name="value">
-              <number>0</number>
-             </property>
-             <property name="textVisible">
-              <bool>false</bool>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <layout class="QHBoxLayout" name="UpsBtns">
-             <item>
-              <widget class="QPushButton" name="UpsRun">
-               <property name="sizePolicy">
-                <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
-                 <horstretch>0</horstretch>
-                 <verstretch>0</verstretch>
-                </sizepolicy>
-               </property>
-               <property name="text">
-                <string>运行</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QPushButton" name="UpsListImg">
-               <property name="text">
-                <string>查找图像</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QPushButton" name="UpsStop">
-               <property name="enabled">
-                <bool>false</bool>
-               </property>
-               <property name="text">
-                <string>终止</string>
-               </property>
-              </widget>
-             </item>
-            </layout>
-           </item>
-           <item>
-            <widget class="QListWidget" name="UpsList">
-             <property name="contextMenuPolicy">
-              <enum>Qt::ContextMenuPolicy::CustomContextMenu</enum>
-             </property>
-             <property name="selectionMode">
-              <enum>QAbstractItemView::SelectionMode::ExtendedSelection</enum>
-             </property>
-             <property name="wordWrap">
-              <bool>true</bool>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <spacer name="UpsSpacer">
-             <property name="orientation">
-              <enum>Qt::Orientation::Vertical</enum>
-             </property>
-             <property name="sizeHint" stdset="0">
-              <size>
-               <width>0</width>
-               <height>0</height>
-              </size>
-             </property>
-            </spacer>
-           </item>
-          </layout>
-         </widget>
-         <widget class="QWidget" name="VidTrimLayout">
-          <attribute name="title">
-           <string>视频剪切</string>
-          </attribute>
-          <attribute name="toolTip">
-           <string>丢弃一个视频前或后一定时间的部分，不损失画质
-通常用于一些被填充了无关内容的视频，比如B站的资源</string>
-          </attribute>
-          <layout class="QVBoxLayout" name="verticalLayout_7">
-           <item>
-            <layout class="QHBoxLayout" name="VidTrimInputs">
-             <item>
-              <widget class="QPushButton" name="VidTrimInputOpen">
-               <property name="text">
-                <string>打开</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QLineEdit" name="VidTrimInputPath">
-               <property name="placeholderText">
-                <string>要剪切的视频路径</string>
-               </property>
-               <property name="clearButtonEnabled">
-                <bool>true</bool>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QPushButton" name="VidTrimInputPlay">
-               <property name="text">
-                <string>播放</string>
-               </property>
-              </widget>
-             </item>
-            </layout>
-           </item>
-           <item>
-            <layout class="QHBoxLayout" name="VidTrimOutputs">
-             <item>
-              <widget class="QPushButton" name="VidTrimOutputOpen">
-               <property name="text">
-                <string>打开</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QLineEdit" name="VidTrimOutputPath">
-               <property name="placeholderText">
-                <string>输出视频路径（留空以保存到输入所在的文件夹）</string>
-               </property>
-               <property name="clearButtonEnabled">
-                <bool>true</bool>
-               </property>
-              </widget>
-             </item>
-            </layout>
-           </item>
-           <item>
-            <layout class="QHBoxLayout" name="VidTrimOptions">
-             <item>
-              <widget class="QComboBox" name="VidTrimMode">
-               <item>
-                <property name="text">
-                 <string>截止于</string>
-                </property>
-               </item>
-               <item>
-                <property name="text">
-                 <string>开始于</string>
-                </property>
-               </item>
-              </widget>
-             </item>
-             <item>
-              <widget class="QTimeEdit" name="VidTrimTime">
-               <property name="buttonSymbols">
-                <enum>QAbstractSpinBox::ButtonSymbols::NoButtons</enum>
-               </property>
-               <property name="displayFormat">
-                <string>HH:mm:ss.zzz</string>
-               </property>
-              </widget>
-             </item>
-            </layout>
-           </item>
-           <item>
-            <widget class="QPushButton" name="VidTrimRun">
-             <property name="text">
-              <string>运行</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <spacer name="VidTrimSpacer">
-             <property name="orientation">
-              <enum>Qt::Orientation::Vertical</enum>
-             </property>
-             <property name="sizeHint" stdset="0">
-              <size>
-               <width>20</width>
-               <height>40</height>
-              </size>
-             </property>
-            </spacer>
-           </item>
-          </layout>
-         </widget>
-        </widget>
+        <widget class="MediaProcWidget" name="MediaProc" native="true"/>
        </item>
       </layout>
      </widget>
@@ -980,6 +435,9 @@
               <widget class="QLineEdit" name="CropTextInPath">
                <property name="placeholderText">
                 <string>输入文件路径</string>
+               </property>
+               <property name="clearButtonEnabled">
+                <bool>true</bool>
                </property>
               </widget>
              </item>
@@ -1059,6 +517,9 @@
                <property name="placeholderText">
                 <string>输出文件路径（留空以保存到源文件夹）</string>
                </property>
+               <property name="clearButtonEnabled">
+                <bool>true</bool>
+               </property>
               </widget>
              </item>
             </layout>
@@ -1134,6 +595,9 @@
                <property name="placeholderText">
                 <string>输入文本 1</string>
                </property>
+               <property name="clearButtonEnabled">
+                <bool>true</bool>
+               </property>
               </widget>
              </item>
              <item>
@@ -1141,16 +605,30 @@
                <property name="placeholderText">
                 <string>输入文本 2</string>
                </property>
+               <property name="clearButtonEnabled">
+                <bool>true</bool>
+               </property>
               </widget>
              </item>
             </layout>
            </item>
            <item>
-            <widget class="QPushButton" name="CalSimRun">
-             <property name="text">
-              <string>计算</string>
-             </property>
-            </widget>
+            <layout class="QHBoxLayout" name="CalSimBtns">
+             <item>
+              <widget class="QPushButton" name="CalSimRun">
+               <property name="text">
+                <string>计算</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="CalSimUnload">
+               <property name="text">
+                <string>卸载模型</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
            </item>
            <item>
             <spacer name="CalSimSpacer">
@@ -1189,6 +667,9 @@
                <property name="placeholderText">
                 <string>输入文件路径</string>
                </property>
+               <property name="clearButtonEnabled">
+                <bool>true</bool>
+               </property>
               </widget>
              </item>
             </layout>
@@ -1224,144 +705,23 @@
        <string>测试用</string>
       </attribute>
       <layout class="QVBoxLayout" name="verticalLayout_9">
+       <property name="spacing">
+        <number>0</number>
+       </property>
+       <property name="leftMargin">
+        <number>0</number>
+       </property>
+       <property name="topMargin">
+        <number>0</number>
+       </property>
+       <property name="rightMargin">
+        <number>0</number>
+       </property>
+       <property name="bottomMargin">
+        <number>0</number>
+       </property>
        <item>
-        <widget class="QTabWidget" name="TestChildTab">
-         <property name="currentIndex">
-          <number>0</number>
-         </property>
-         <property name="movable">
-          <bool>true</bool>
-         </property>
-         <widget class="QWidget" name="ImgSeqGen">
-          <attribute name="title">
-           <string>生成图像序列</string>
-          </attribute>
-          <layout class="QVBoxLayout" name="verticalLayout_12">
-           <item>
-            <widget class="QSpinBox" name="ImageSeqItemAmount">
-             <property name="buttonSymbols">
-              <enum>QAbstractSpinBox::ButtonSymbols::NoButtons</enum>
-             </property>
-             <property name="suffix">
-              <string> 张图片</string>
-             </property>
-             <property name="prefix">
-              <string>生成 </string>
-             </property>
-             <property name="minimum">
-              <number>1</number>
-             </property>
-             <property name="maximum">
-              <number>500</number>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <layout class="QHBoxLayout" name="ImageSeqPaths">
-             <item>
-              <widget class="QPushButton" name="ImageSeqPathOpen">
-               <property name="text">
-                <string>打开</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QLineEdit" name="ImageSeqPathInput">
-               <property name="placeholderText">
-                <string>在此目录下生成</string>
-               </property>
-               <property name="clearButtonEnabled">
-                <bool>true</bool>
-               </property>
-              </widget>
-             </item>
-            </layout>
-           </item>
-           <item>
-            <widget class="QProgressBar" name="ImageSeqGenProgress">
-             <property name="value">
-              <number>0</number>
-             </property>
-             <property name="textVisible">
-              <bool>false</bool>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <layout class="QHBoxLayout" name="ImageSeqGenBtns">
-             <item>
-              <widget class="QPushButton" name="ImageSeqGenStart">
-               <property name="text">
-                <string>开始</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QPushButton" name="ImageSeqGenStop">
-               <property name="enabled">
-                <bool>false</bool>
-               </property>
-               <property name="text">
-                <string>终止</string>
-               </property>
-              </widget>
-             </item>
-            </layout>
-           </item>
-           <item>
-            <spacer name="ImageSeqGenSpacer">
-             <property name="orientation">
-              <enum>Qt::Orientation::Vertical</enum>
-             </property>
-             <property name="sizeHint" stdset="0">
-              <size>
-               <width>0</width>
-               <height>0</height>
-              </size>
-             </property>
-            </spacer>
-           </item>
-          </layout>
-         </widget>
-         <widget class="QWidget" name="QtIconsLayout">
-          <attribute name="title">
-           <string>Qt内置图标</string>
-          </attribute>
-          <layout class="QVBoxLayout" name="verticalLayout_16">
-           <item>
-            <layout class="QHBoxLayout" name="QtIconsBtns">
-             <item>
-              <widget class="QPushButton" name="QtIconsExport">
-               <property name="text">
-                <string>直接导出</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QPushButton" name="QtIconsShow">
-               <property name="text">
-                <string>打开 GUI</string>
-               </property>
-              </widget>
-             </item>
-            </layout>
-           </item>
-           <item>
-            <spacer name="QtIconsSpacer">
-             <property name="orientation">
-              <enum>Qt::Orientation::Vertical</enum>
-             </property>
-             <property name="sizeHint" stdset="0">
-              <size>
-               <width>0</width>
-               <height>0</height>
-              </size>
-             </property>
-            </spacer>
-           </item>
-          </layout>
-         </widget>
-        </widget>
+        <widget class="TestsWidget" name="TestingWidget" native="true"/>
        </item>
       </layout>
      </widget>
@@ -1424,6 +784,26 @@
    </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>TestsWidget</class>
+   <extends>QWidget</extends>
+   <header>pages.tests.ui</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>FileMgrWidget</class>
+   <extends>QWidget</extends>
+   <header>pages.file_mgr.ui</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>MediaProcWidget</class>
+   <extends>QWidget</extends>
+   <header>pages.media_proc.ui</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>

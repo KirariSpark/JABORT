@@ -1,9 +1,9 @@
 from PySide6.QtCore import QThread, Signal
 from PySide6.QtWidgets import QMessageBox
 
-from Tools.TestTools import ImgSeqGen
-from Core import log_manager
-from Core.error_codes import ErrorCode
+from modules.tests import ImgSeqGen
+from core import log_manager
+from core.error_codes import ErrorCode
 
 logger = log_manager.get_logger(__name__)
 
@@ -31,7 +31,7 @@ class ImageSeqWorker(QThread):
         self._stop = False
         logger.info(f"开始生成 {self.num_images} 张图片到 {self.output_folder}")
 
-        res = ImgSeqGen.generate_image_sequence(self.output_folder, self.num_images, (256,256))
+        res = ImgSeqGen.generate_image_sequence(self.output_folder, self.num_images, (256, 256))
 
         for i in res:
             if self._stop:

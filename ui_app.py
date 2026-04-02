@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'appSTokrg.ui'
+## Form generated from reading UI file 'appdWsSrZ.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.10.0
 ##
@@ -15,12 +15,15 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QFont, QFontDatabase, QGradient, QIcon,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
-from PySide6.QtWidgets import (QAbstractItemView, QAbstractSpinBox, QApplication, QComboBox,
-    QDoubleSpinBox, QFormLayout, QGridLayout, QHBoxLayout,
-    QLabel, QLineEdit, QListWidget, QListWidgetItem,
+from PySide6.QtWidgets import (QAbstractSpinBox, QApplication, QComboBox, QFormLayout,
+    QGridLayout, QHBoxLayout, QLabel, QLineEdit,
     QProgressBar, QPushButton, QSizePolicy, QSlider,
-    QSpacerItem, QSpinBox, QTabWidget, QTimeEdit,
-    QVBoxLayout, QWidget)
+    QSpacerItem, QSpinBox, QTabWidget, QVBoxLayout,
+    QWidget)
+
+from pages.file_mgr.ui import FileMgrWidget
+from pages.media_proc.ui import MediaProcWidget
+from pages.tests.ui import TestsWidget
 
 class Ui_Form(object):
     def setupUi(self, Form):
@@ -39,111 +42,13 @@ class Ui_Form(object):
         self.FileMgrLayout = QWidget()
         self.FileMgrLayout.setObjectName(u"FileMgrLayout")
         self.verticalLayout_2 = QVBoxLayout(self.FileMgrLayout)
+        self.verticalLayout_2.setSpacing(0)
         self.verticalLayout_2.setObjectName(u"verticalLayout_2")
-        self.FileMgrChildTab = QTabWidget(self.FileMgrLayout)
-        self.FileMgrChildTab.setObjectName(u"FileMgrChildTab")
-        self.FileMgrChildTab.setMovable(True)
-        self.FlattenLayoyt = QWidget()
-        self.FlattenLayoyt.setObjectName(u"FlattenLayoyt")
-        self.verticalLayout_13 = QVBoxLayout(self.FlattenLayoyt)
-        self.verticalLayout_13.setObjectName(u"verticalLayout_13")
-        self.FlattenDir = QHBoxLayout()
-        self.FlattenDir.setObjectName(u"FlattenDir")
-        self.FlattenDirOpen = QPushButton(self.FlattenLayoyt)
-        self.FlattenDirOpen.setObjectName(u"FlattenDirOpen")
+        self.verticalLayout_2.setContentsMargins(0, 0, 0, 0)
+        self.FileMgr = FileMgrWidget(self.FileMgrLayout)
+        self.FileMgr.setObjectName(u"FileMgr")
 
-        self.FlattenDir.addWidget(self.FlattenDirOpen)
-
-        self.FlattenDirInput = QLineEdit(self.FlattenLayoyt)
-        self.FlattenDirInput.setObjectName(u"FlattenDirInput")
-        sizePolicy = QSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
-        sizePolicy.setHorizontalStretch(0)
-        sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.FlattenDirInput.sizePolicy().hasHeightForWidth())
-        self.FlattenDirInput.setSizePolicy(sizePolicy)
-        self.FlattenDirInput.setClearButtonEnabled(True)
-
-        self.FlattenDir.addWidget(self.FlattenDirInput)
-
-
-        self.verticalLayout_13.addLayout(self.FlattenDir)
-
-        self.FlattenBtns = QHBoxLayout()
-        self.FlattenBtns.setObjectName(u"FlattenBtns")
-        self.FlattenRun = QPushButton(self.FlattenLayoyt)
-        self.FlattenRun.setObjectName(u"FlattenRun")
-        sizePolicy1 = QSizePolicy(QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Minimum)
-        sizePolicy1.setHorizontalStretch(0)
-        sizePolicy1.setVerticalStretch(0)
-        sizePolicy1.setHeightForWidth(self.FlattenRun.sizePolicy().hasHeightForWidth())
-        self.FlattenRun.setSizePolicy(sizePolicy1)
-
-        self.FlattenBtns.addWidget(self.FlattenRun)
-
-        self.FlattenStop = QPushButton(self.FlattenLayoyt)
-        self.FlattenStop.setObjectName(u"FlattenStop")
-        self.FlattenStop.setEnabled(False)
-
-        self.FlattenBtns.addWidget(self.FlattenStop)
-
-
-        self.verticalLayout_13.addLayout(self.FlattenBtns)
-
-        self.FlattenSpacer = QSpacerItem(0, 0, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding)
-
-        self.verticalLayout_13.addItem(self.FlattenSpacer)
-
-        self.FileMgrChildTab.addTab(self.FlattenLayoyt, "")
-        self.NewFlattenLayout = QWidget()
-        self.NewFlattenLayout.setObjectName(u"NewFlattenLayout")
-        self.verticalLayout_17 = QVBoxLayout(self.NewFlattenLayout)
-        self.verticalLayout_17.setObjectName(u"verticalLayout_17")
-        self.NewFlattenDir = QHBoxLayout()
-        self.NewFlattenDir.setObjectName(u"NewFlattenDir")
-        self.NewFlattenDirOpen = QPushButton(self.NewFlattenLayout)
-        self.NewFlattenDirOpen.setObjectName(u"NewFlattenDirOpen")
-
-        self.NewFlattenDir.addWidget(self.NewFlattenDirOpen)
-
-        self.NewFlattenDirInput = QLineEdit(self.NewFlattenLayout)
-        self.NewFlattenDirInput.setObjectName(u"NewFlattenDirInput")
-        self.NewFlattenDirInput.setClearButtonEnabled(True)
-
-        self.NewFlattenDir.addWidget(self.NewFlattenDirInput)
-
-
-        self.verticalLayout_17.addLayout(self.NewFlattenDir)
-
-        self.NewFlattenProgress = QProgressBar(self.NewFlattenLayout)
-        self.NewFlattenProgress.setObjectName(u"NewFlattenProgress")
-        self.NewFlattenProgress.setValue(0)
-        self.NewFlattenProgress.setTextVisible(False)
-
-        self.verticalLayout_17.addWidget(self.NewFlattenProgress)
-
-        self.NewFlattenBtns = QHBoxLayout()
-        self.NewFlattenBtns.setObjectName(u"NewFlattenBtns")
-        self.NewFlattenRun = QPushButton(self.NewFlattenLayout)
-        self.NewFlattenRun.setObjectName(u"NewFlattenRun")
-
-        self.NewFlattenBtns.addWidget(self.NewFlattenRun)
-
-        self.NewFlattenStop = QPushButton(self.NewFlattenLayout)
-        self.NewFlattenStop.setObjectName(u"NewFlattenStop")
-        self.NewFlattenStop.setEnabled(False)
-
-        self.NewFlattenBtns.addWidget(self.NewFlattenStop)
-
-
-        self.verticalLayout_17.addLayout(self.NewFlattenBtns)
-
-        self.NewFlattenSpacer = QSpacerItem(0, 0, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding)
-
-        self.verticalLayout_17.addItem(self.NewFlattenSpacer)
-
-        self.FileMgrChildTab.addTab(self.NewFlattenLayout, "")
-
-        self.verticalLayout_2.addWidget(self.FileMgrChildTab)
+        self.verticalLayout_2.addWidget(self.FileMgr)
 
         self.MainPage.addTab(self.FileMgrLayout, "")
         self.ConvertorLayout = QWidget()
@@ -161,15 +66,21 @@ class Ui_Form(object):
         self.PNG2JPGDir.setObjectName(u"PNG2JPGDir")
         self.PNG2JPGFindDir = QPushButton(self.PNG2JPG)
         self.PNG2JPGFindDir.setObjectName(u"PNG2JPGFindDir")
-        sizePolicy1.setHeightForWidth(self.PNG2JPGFindDir.sizePolicy().hasHeightForWidth())
-        self.PNG2JPGFindDir.setSizePolicy(sizePolicy1)
+        sizePolicy = QSizePolicy(QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Minimum)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.PNG2JPGFindDir.sizePolicy().hasHeightForWidth())
+        self.PNG2JPGFindDir.setSizePolicy(sizePolicy)
 
         self.PNG2JPGDir.addWidget(self.PNG2JPGFindDir)
 
         self.PNG2JPGDirTxt = QLineEdit(self.PNG2JPG)
         self.PNG2JPGDirTxt.setObjectName(u"PNG2JPGDirTxt")
-        sizePolicy.setHeightForWidth(self.PNG2JPGDirTxt.sizePolicy().hasHeightForWidth())
-        self.PNG2JPGDirTxt.setSizePolicy(sizePolicy)
+        sizePolicy1 = QSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
+        sizePolicy1.setHorizontalStretch(0)
+        sizePolicy1.setVerticalStretch(0)
+        sizePolicy1.setHeightForWidth(self.PNG2JPGDirTxt.sizePolicy().hasHeightForWidth())
+        self.PNG2JPGDirTxt.setSizePolicy(sizePolicy1)
         self.PNG2JPGDirTxt.setClearButtonEnabled(True)
 
         self.PNG2JPGDir.addWidget(self.PNG2JPGDirTxt)
@@ -251,8 +162,8 @@ class Ui_Form(object):
         self.PNG2JPGBtns.setObjectName(u"PNG2JPGBtns")
         self.PNG2JPGRun = QPushButton(self.PNG2JPG)
         self.PNG2JPGRun.setObjectName(u"PNG2JPGRun")
-        sizePolicy1.setHeightForWidth(self.PNG2JPGRun.sizePolicy().hasHeightForWidth())
-        self.PNG2JPGRun.setSizePolicy(sizePolicy1)
+        sizePolicy.setHeightForWidth(self.PNG2JPGRun.sizePolicy().hasHeightForWidth())
+        self.PNG2JPGRun.setSizePolicy(sizePolicy)
 
         self.PNG2JPGBtns.addWidget(self.PNG2JPGRun)
 
@@ -342,242 +253,13 @@ class Ui_Form(object):
         self.MediaProcessingLayout = QWidget()
         self.MediaProcessingLayout.setObjectName(u"MediaProcessingLayout")
         self.verticalLayout_5 = QVBoxLayout(self.MediaProcessingLayout)
+        self.verticalLayout_5.setSpacing(0)
         self.verticalLayout_5.setObjectName(u"verticalLayout_5")
-        self.MediaProcessingChildTab = QTabWidget(self.MediaProcessingLayout)
-        self.MediaProcessingChildTab.setObjectName(u"MediaProcessingChildTab")
-        self.MediaProcessingChildTab.setMovable(True)
-        self.UpsLayout = QWidget()
-        self.UpsLayout.setObjectName(u"UpsLayout")
-        self.verticalLayout_4 = QVBoxLayout(self.UpsLayout)
-        self.verticalLayout_4.setObjectName(u"verticalLayout_4")
-        self.UpsComfyUrl = QLineEdit(self.UpsLayout)
-        self.UpsComfyUrl.setObjectName(u"UpsComfyUrl")
-        sizePolicy.setHeightForWidth(self.UpsComfyUrl.sizePolicy().hasHeightForWidth())
-        self.UpsComfyUrl.setSizePolicy(sizePolicy)
-
-        self.verticalLayout_4.addWidget(self.UpsComfyUrl)
-
-        self.UpsModel = QHBoxLayout()
-        self.UpsModel.setObjectName(u"UpsModel")
-        self.UpsModelDropdown = QComboBox(self.UpsLayout)
-        self.UpsModelDropdown.setObjectName(u"UpsModelDropdown")
-        sizePolicy.setHeightForWidth(self.UpsModelDropdown.sizePolicy().hasHeightForWidth())
-        self.UpsModelDropdown.setSizePolicy(sizePolicy)
-        self.UpsModelDropdown.setFrame(True)
-
-        self.UpsModel.addWidget(self.UpsModelDropdown)
-
-        self.UpsRefreshModel = QPushButton(self.UpsLayout)
-        self.UpsRefreshModel.setObjectName(u"UpsRefreshModel")
-        sizePolicy1.setHeightForWidth(self.UpsRefreshModel.sizePolicy().hasHeightForWidth())
-        self.UpsRefreshModel.setSizePolicy(sizePolicy1)
-
-        self.UpsModel.addWidget(self.UpsRefreshModel)
-
-
-        self.verticalLayout_4.addLayout(self.UpsModel)
-
-        self.UpsImg = QHBoxLayout()
-        self.UpsImg.setObjectName(u"UpsImg")
-        self.UpsChooseImagePath = QPushButton(self.UpsLayout)
-        self.UpsChooseImagePath.setObjectName(u"UpsChooseImagePath")
-        sizePolicy1.setHeightForWidth(self.UpsChooseImagePath.sizePolicy().hasHeightForWidth())
-        self.UpsChooseImagePath.setSizePolicy(sizePolicy1)
-
-        self.UpsImg.addWidget(self.UpsChooseImagePath)
-
-        self.UpsImagePath = QLineEdit(self.UpsLayout)
-        self.UpsImagePath.setObjectName(u"UpsImagePath")
-        sizePolicy.setHeightForWidth(self.UpsImagePath.sizePolicy().hasHeightForWidth())
-        self.UpsImagePath.setSizePolicy(sizePolicy)
-
-        self.UpsImg.addWidget(self.UpsImagePath)
-
-        self.UpsRecursive = QPushButton(self.UpsLayout)
-        self.UpsRecursive.setObjectName(u"UpsRecursive")
-        self.UpsRecursive.setCheckable(True)
-
-        self.UpsImg.addWidget(self.UpsRecursive)
-
-
-        self.verticalLayout_4.addLayout(self.UpsImg)
-
-        self.UpsSaves = QHBoxLayout()
-        self.UpsSaves.setObjectName(u"UpsSaves")
-        self.UpsSavePathOpen = QPushButton(self.UpsLayout)
-        self.UpsSavePathOpen.setObjectName(u"UpsSavePathOpen")
-
-        self.UpsSaves.addWidget(self.UpsSavePathOpen)
-
-        self.UpsSavePath = QLineEdit(self.UpsLayout)
-        self.UpsSavePath.setObjectName(u"UpsSavePath")
-
-        self.UpsSaves.addWidget(self.UpsSavePath)
-
-
-        self.verticalLayout_4.addLayout(self.UpsSaves)
-
-        self.UpsOptions = QGridLayout()
-        self.UpsOptions.setObjectName(u"UpsOptions")
-        self.UpsHeightThresholdSpin = QSpinBox(self.UpsLayout)
-        self.UpsHeightThresholdSpin.setObjectName(u"UpsHeightThresholdSpin")
-        sizePolicy.setHeightForWidth(self.UpsHeightThresholdSpin.sizePolicy().hasHeightForWidth())
-        self.UpsHeightThresholdSpin.setSizePolicy(sizePolicy)
-        self.UpsHeightThresholdSpin.setButtonSymbols(QAbstractSpinBox.ButtonSymbols.NoButtons)
-        self.UpsHeightThresholdSpin.setMaximum(3000)
-        self.UpsHeightThresholdSpin.setValue(1500)
-
-        self.UpsOptions.addWidget(self.UpsHeightThresholdSpin, 0, 0, 1, 1)
-
-        self.UpsJPGThresholdSpin = QSpinBox(self.UpsLayout)
-        self.UpsJPGThresholdSpin.setObjectName(u"UpsJPGThresholdSpin")
-        sizePolicy.setHeightForWidth(self.UpsJPGThresholdSpin.sizePolicy().hasHeightForWidth())
-        self.UpsJPGThresholdSpin.setSizePolicy(sizePolicy)
-        self.UpsJPGThresholdSpin.setButtonSymbols(QAbstractSpinBox.ButtonSymbols.NoButtons)
-        self.UpsJPGThresholdSpin.setMaximum(3000)
-        self.UpsJPGThresholdSpin.setValue(500)
-
-        self.UpsOptions.addWidget(self.UpsJPGThresholdSpin, 1, 0, 1, 1)
-
-        self.UpsWidthThresholdSpin = QSpinBox(self.UpsLayout)
-        self.UpsWidthThresholdSpin.setObjectName(u"UpsWidthThresholdSpin")
-        sizePolicy.setHeightForWidth(self.UpsWidthThresholdSpin.sizePolicy().hasHeightForWidth())
-        self.UpsWidthThresholdSpin.setSizePolicy(sizePolicy)
-        self.UpsWidthThresholdSpin.setButtonSymbols(QAbstractSpinBox.ButtonSymbols.NoButtons)
-        self.UpsWidthThresholdSpin.setMaximum(3000)
-        self.UpsWidthThresholdSpin.setValue(1500)
-
-        self.UpsOptions.addWidget(self.UpsWidthThresholdSpin, 0, 1, 1, 1)
-
-        self.UpsDownscaleSpin = QDoubleSpinBox(self.UpsLayout)
-        self.UpsDownscaleSpin.setObjectName(u"UpsDownscaleSpin")
-        sizePolicy1.setHeightForWidth(self.UpsDownscaleSpin.sizePolicy().hasHeightForWidth())
-        self.UpsDownscaleSpin.setSizePolicy(sizePolicy1)
-        self.UpsDownscaleSpin.setButtonSymbols(QAbstractSpinBox.ButtonSymbols.NoButtons)
-        self.UpsDownscaleSpin.setMinimum(0.010000000000000)
-        self.UpsDownscaleSpin.setMaximum(1.000000000000000)
-        self.UpsDownscaleSpin.setSingleStep(0.010000000000000)
-        self.UpsDownscaleSpin.setValue(1.000000000000000)
-
-        self.UpsOptions.addWidget(self.UpsDownscaleSpin, 1, 1, 1, 1)
-
-
-        self.verticalLayout_4.addLayout(self.UpsOptions)
-
-        self.UpsProgress = QProgressBar(self.UpsLayout)
-        self.UpsProgress.setObjectName(u"UpsProgress")
-        self.UpsProgress.setValue(0)
-        self.UpsProgress.setTextVisible(False)
-
-        self.verticalLayout_4.addWidget(self.UpsProgress)
-
-        self.UpsBtns = QHBoxLayout()
-        self.UpsBtns.setObjectName(u"UpsBtns")
-        self.UpsRun = QPushButton(self.UpsLayout)
-        self.UpsRun.setObjectName(u"UpsRun")
-        sizePolicy1.setHeightForWidth(self.UpsRun.sizePolicy().hasHeightForWidth())
-        self.UpsRun.setSizePolicy(sizePolicy1)
-
-        self.UpsBtns.addWidget(self.UpsRun)
-
-        self.UpsListImg = QPushButton(self.UpsLayout)
-        self.UpsListImg.setObjectName(u"UpsListImg")
-
-        self.UpsBtns.addWidget(self.UpsListImg)
-
-        self.UpsStop = QPushButton(self.UpsLayout)
-        self.UpsStop.setObjectName(u"UpsStop")
-        self.UpsStop.setEnabled(False)
-
-        self.UpsBtns.addWidget(self.UpsStop)
-
-
-        self.verticalLayout_4.addLayout(self.UpsBtns)
-
-        self.UpsList = QListWidget(self.UpsLayout)
-        self.UpsList.setObjectName(u"UpsList")
-        self.UpsList.setContextMenuPolicy(Qt.ContextMenuPolicy.CustomContextMenu)
-        self.UpsList.setSelectionMode(QAbstractItemView.SelectionMode.ExtendedSelection)
-        self.UpsList.setWordWrap(True)
-
-        self.verticalLayout_4.addWidget(self.UpsList)
-
-        self.UpsSpacer = QSpacerItem(0, 0, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding)
-
-        self.verticalLayout_4.addItem(self.UpsSpacer)
-
-        self.MediaProcessingChildTab.addTab(self.UpsLayout, "")
-        self.VidTrimLayout = QWidget()
-        self.VidTrimLayout.setObjectName(u"VidTrimLayout")
-        self.verticalLayout_7 = QVBoxLayout(self.VidTrimLayout)
-        self.verticalLayout_7.setObjectName(u"verticalLayout_7")
-        self.VidTrimInputs = QHBoxLayout()
-        self.VidTrimInputs.setObjectName(u"VidTrimInputs")
-        self.VidTrimInputOpen = QPushButton(self.VidTrimLayout)
-        self.VidTrimInputOpen.setObjectName(u"VidTrimInputOpen")
-
-        self.VidTrimInputs.addWidget(self.VidTrimInputOpen)
-
-        self.VidTrimInputPath = QLineEdit(self.VidTrimLayout)
-        self.VidTrimInputPath.setObjectName(u"VidTrimInputPath")
-        self.VidTrimInputPath.setClearButtonEnabled(True)
-
-        self.VidTrimInputs.addWidget(self.VidTrimInputPath)
-
-        self.VidTrimInputPlay = QPushButton(self.VidTrimLayout)
-        self.VidTrimInputPlay.setObjectName(u"VidTrimInputPlay")
-
-        self.VidTrimInputs.addWidget(self.VidTrimInputPlay)
-
-
-        self.verticalLayout_7.addLayout(self.VidTrimInputs)
-
-        self.VidTrimOutputs = QHBoxLayout()
-        self.VidTrimOutputs.setObjectName(u"VidTrimOutputs")
-        self.VidTrimOutputOpen = QPushButton(self.VidTrimLayout)
-        self.VidTrimOutputOpen.setObjectName(u"VidTrimOutputOpen")
-
-        self.VidTrimOutputs.addWidget(self.VidTrimOutputOpen)
-
-        self.VidTrimOutputPath = QLineEdit(self.VidTrimLayout)
-        self.VidTrimOutputPath.setObjectName(u"VidTrimOutputPath")
-        self.VidTrimOutputPath.setClearButtonEnabled(True)
-
-        self.VidTrimOutputs.addWidget(self.VidTrimOutputPath)
-
-
-        self.verticalLayout_7.addLayout(self.VidTrimOutputs)
-
-        self.VidTrimOptions = QHBoxLayout()
-        self.VidTrimOptions.setObjectName(u"VidTrimOptions")
-        self.VidTrimMode = QComboBox(self.VidTrimLayout)
-        self.VidTrimMode.addItem("")
-        self.VidTrimMode.addItem("")
-        self.VidTrimMode.setObjectName(u"VidTrimMode")
-
-        self.VidTrimOptions.addWidget(self.VidTrimMode)
-
-        self.VidTrimTime = QTimeEdit(self.VidTrimLayout)
-        self.VidTrimTime.setObjectName(u"VidTrimTime")
-        self.VidTrimTime.setButtonSymbols(QAbstractSpinBox.ButtonSymbols.NoButtons)
-
-        self.VidTrimOptions.addWidget(self.VidTrimTime)
-
-
-        self.verticalLayout_7.addLayout(self.VidTrimOptions)
-
-        self.VidTrimRun = QPushButton(self.VidTrimLayout)
-        self.VidTrimRun.setObjectName(u"VidTrimRun")
-
-        self.verticalLayout_7.addWidget(self.VidTrimRun)
-
-        self.VidTrimSpacer = QSpacerItem(20, 40, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding)
-
-        self.verticalLayout_7.addItem(self.VidTrimSpacer)
-
-        self.MediaProcessingChildTab.addTab(self.VidTrimLayout, "")
-
-        self.verticalLayout_5.addWidget(self.MediaProcessingChildTab)
+        self.verticalLayout_5.setContentsMargins(0, 0, 0, 0)
+        self.MediaProc = MediaProcWidget(self.MediaProcessingLayout)
+        self.MediaProc.setObjectName(u"MediaProc")
+
+        self.verticalLayout_5.addWidget(self.MediaProc)
 
         self.MainPage.addTab(self.MediaProcessingLayout, "")
         self.TextProcessingLayout = QWidget()
@@ -600,6 +282,7 @@ class Ui_Form(object):
 
         self.CropTextInPath = QLineEdit(self.CropText)
         self.CropTextInPath.setObjectName(u"CropTextInPath")
+        self.CropTextInPath.setClearButtonEnabled(True)
 
         self.CropTextInput.addWidget(self.CropTextInPath)
 
@@ -643,6 +326,7 @@ class Ui_Form(object):
 
         self.CropTextOutPath = QLineEdit(self.CropText)
         self.CropTextOutPath.setObjectName(u"CropTextOutPath")
+        self.CropTextOutPath.setClearButtonEnabled(True)
 
         self.CropTextOutput.addWidget(self.CropTextOutPath)
 
@@ -690,21 +374,33 @@ class Ui_Form(object):
         self.CalSimInput.setObjectName(u"CalSimInput")
         self.CalSimIn1 = QLineEdit(self.CalSim)
         self.CalSimIn1.setObjectName(u"CalSimIn1")
+        self.CalSimIn1.setClearButtonEnabled(True)
 
         self.CalSimInput.addWidget(self.CalSimIn1)
 
         self.CalSimIn2 = QLineEdit(self.CalSim)
         self.CalSimIn2.setObjectName(u"CalSimIn2")
+        self.CalSimIn2.setClearButtonEnabled(True)
 
         self.CalSimInput.addWidget(self.CalSimIn2)
 
 
         self.verticalLayout_14.addLayout(self.CalSimInput)
 
+        self.CalSimBtns = QHBoxLayout()
+        self.CalSimBtns.setObjectName(u"CalSimBtns")
         self.CalSimRun = QPushButton(self.CalSim)
         self.CalSimRun.setObjectName(u"CalSimRun")
 
-        self.verticalLayout_14.addWidget(self.CalSimRun)
+        self.CalSimBtns.addWidget(self.CalSimRun)
+
+        self.CalSimUnload = QPushButton(self.CalSim)
+        self.CalSimUnload.setObjectName(u"CalSimUnload")
+
+        self.CalSimBtns.addWidget(self.CalSimUnload)
+
+
+        self.verticalLayout_14.addLayout(self.CalSimBtns)
 
         self.CalSimSpacer = QSpacerItem(0, 0, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding)
 
@@ -724,6 +420,7 @@ class Ui_Form(object):
 
         self.JsonSorterInPath = QLineEdit(self.JsonSorter)
         self.JsonSorterInPath.setObjectName(u"JsonSorterInPath")
+        self.JsonSorterInPath.setClearButtonEnabled(True)
 
         self.JsonSorterIn.addWidget(self.JsonSorterInPath)
 
@@ -747,92 +444,13 @@ class Ui_Form(object):
         self.TestingLayout = QWidget()
         self.TestingLayout.setObjectName(u"TestingLayout")
         self.verticalLayout_9 = QVBoxLayout(self.TestingLayout)
+        self.verticalLayout_9.setSpacing(0)
         self.verticalLayout_9.setObjectName(u"verticalLayout_9")
-        self.TestChildTab = QTabWidget(self.TestingLayout)
-        self.TestChildTab.setObjectName(u"TestChildTab")
-        self.TestChildTab.setMovable(True)
-        self.ImgSeqGen = QWidget()
-        self.ImgSeqGen.setObjectName(u"ImgSeqGen")
-        self.verticalLayout_12 = QVBoxLayout(self.ImgSeqGen)
-        self.verticalLayout_12.setObjectName(u"verticalLayout_12")
-        self.ImageSeqItemAmount = QSpinBox(self.ImgSeqGen)
-        self.ImageSeqItemAmount.setObjectName(u"ImageSeqItemAmount")
-        self.ImageSeqItemAmount.setButtonSymbols(QAbstractSpinBox.ButtonSymbols.NoButtons)
-        self.ImageSeqItemAmount.setMinimum(1)
-        self.ImageSeqItemAmount.setMaximum(500)
+        self.verticalLayout_9.setContentsMargins(0, 0, 0, 0)
+        self.TestingWidget = TestsWidget(self.TestingLayout)
+        self.TestingWidget.setObjectName(u"TestingWidget")
 
-        self.verticalLayout_12.addWidget(self.ImageSeqItemAmount)
-
-        self.ImageSeqPaths = QHBoxLayout()
-        self.ImageSeqPaths.setObjectName(u"ImageSeqPaths")
-        self.ImageSeqPathOpen = QPushButton(self.ImgSeqGen)
-        self.ImageSeqPathOpen.setObjectName(u"ImageSeqPathOpen")
-
-        self.ImageSeqPaths.addWidget(self.ImageSeqPathOpen)
-
-        self.ImageSeqPathInput = QLineEdit(self.ImgSeqGen)
-        self.ImageSeqPathInput.setObjectName(u"ImageSeqPathInput")
-        self.ImageSeqPathInput.setClearButtonEnabled(True)
-
-        self.ImageSeqPaths.addWidget(self.ImageSeqPathInput)
-
-
-        self.verticalLayout_12.addLayout(self.ImageSeqPaths)
-
-        self.ImageSeqGenProgress = QProgressBar(self.ImgSeqGen)
-        self.ImageSeqGenProgress.setObjectName(u"ImageSeqGenProgress")
-        self.ImageSeqGenProgress.setValue(0)
-        self.ImageSeqGenProgress.setTextVisible(False)
-
-        self.verticalLayout_12.addWidget(self.ImageSeqGenProgress)
-
-        self.ImageSeqGenBtns = QHBoxLayout()
-        self.ImageSeqGenBtns.setObjectName(u"ImageSeqGenBtns")
-        self.ImageSeqGenStart = QPushButton(self.ImgSeqGen)
-        self.ImageSeqGenStart.setObjectName(u"ImageSeqGenStart")
-
-        self.ImageSeqGenBtns.addWidget(self.ImageSeqGenStart)
-
-        self.ImageSeqGenStop = QPushButton(self.ImgSeqGen)
-        self.ImageSeqGenStop.setObjectName(u"ImageSeqGenStop")
-        self.ImageSeqGenStop.setEnabled(False)
-
-        self.ImageSeqGenBtns.addWidget(self.ImageSeqGenStop)
-
-
-        self.verticalLayout_12.addLayout(self.ImageSeqGenBtns)
-
-        self.ImageSeqGenSpacer = QSpacerItem(0, 0, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding)
-
-        self.verticalLayout_12.addItem(self.ImageSeqGenSpacer)
-
-        self.TestChildTab.addTab(self.ImgSeqGen, "")
-        self.QtIconsLayout = QWidget()
-        self.QtIconsLayout.setObjectName(u"QtIconsLayout")
-        self.verticalLayout_16 = QVBoxLayout(self.QtIconsLayout)
-        self.verticalLayout_16.setObjectName(u"verticalLayout_16")
-        self.QtIconsBtns = QHBoxLayout()
-        self.QtIconsBtns.setObjectName(u"QtIconsBtns")
-        self.QtIconsExport = QPushButton(self.QtIconsLayout)
-        self.QtIconsExport.setObjectName(u"QtIconsExport")
-
-        self.QtIconsBtns.addWidget(self.QtIconsExport)
-
-        self.QtIconsShow = QPushButton(self.QtIconsLayout)
-        self.QtIconsShow.setObjectName(u"QtIconsShow")
-
-        self.QtIconsBtns.addWidget(self.QtIconsShow)
-
-
-        self.verticalLayout_16.addLayout(self.QtIconsBtns)
-
-        self.QtIconsSpacer = QSpacerItem(0, 0, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding)
-
-        self.verticalLayout_16.addItem(self.QtIconsSpacer)
-
-        self.TestChildTab.addTab(self.QtIconsLayout, "")
-
-        self.verticalLayout_9.addWidget(self.TestChildTab)
+        self.verticalLayout_9.addWidget(self.TestingWidget)
 
         self.MainPage.addTab(self.TestingLayout, "")
         self.SettingLayout = QWidget()
@@ -878,14 +496,10 @@ class Ui_Form(object):
         self.retranslateUi(Form)
 
         self.MainPage.setCurrentIndex(0)
-        self.FileMgrChildTab.setCurrentIndex(0)
         self.ConvertorChildTab.setCurrentIndex(0)
         self.PNG2JPGDedup.setCurrentIndex(2)
-        self.MediaProcessingChildTab.setCurrentIndex(0)
-        self.UpsModelDropdown.setCurrentIndex(-1)
         self.TextProcChildTab.setCurrentIndex(0)
         self.CropTextDedup.setCurrentIndex(2)
-        self.TestChildTab.setCurrentIndex(0)
 
 
         QMetaObject.connectSlotsByName(Form)
@@ -893,22 +507,6 @@ class Ui_Form(object):
 
     def retranslateUi(self, Form):
         Form.setWindowTitle(QCoreApplication.translate("Form", u"Toolbox", None))
-        self.FlattenDirOpen.setText(QCoreApplication.translate("Form", u"\u6253\u5f00", None))
-        self.FlattenDirInput.setPlaceholderText(QCoreApplication.translate("Form", u"\u4ece\u6b64\u5904\u5f00\u59cb\u67e5\u627e\u6587\u4ef6\u5939", None))
-        self.FlattenRun.setText(QCoreApplication.translate("Form", u"\u8fd0\u884c", None))
-        self.FlattenStop.setText(QCoreApplication.translate("Form", u"\u7ec8\u6b62", None))
-        self.FileMgrChildTab.setTabText(self.FileMgrChildTab.indexOf(self.FlattenLayoyt), QCoreApplication.translate("Form", u"\u5c55\u5e73", None))
-#if QT_CONFIG(tooltip)
-        self.FileMgrChildTab.setTabToolTip(self.FileMgrChildTab.indexOf(self.FlattenLayoyt), QCoreApplication.translate("Form", u"\u5982\u679c\u4e00\u4e2a\u6587\u4ef6\u5939\u53ea\u6709\u4e00\u4e2a\u6587\u4ef6\uff0c\u90a3\u4e48\u628a\u8fd9\u4e2a\u6587\u4ef6\u79fb\u52a8\u5230\u5176\u7236\u7ea7\u6587\u4ef6\u5939\uff0c\u5e76\u91cd\u547d\u540d\u4e3a\u6e90\u6587\u4ef6\u5939\u7684\u540d\u79f0\uff0c\u91cd\u590d\u8fd0\u884c\u76f4\u5230\u6ca1\u6709\u53ef\u5904\u7406\u7684\u6587\u4ef6", None))
-#endif // QT_CONFIG(tooltip)
-        self.NewFlattenDirOpen.setText(QCoreApplication.translate("Form", u"\u6253\u5f00", None))
-        self.NewFlattenDirInput.setPlaceholderText(QCoreApplication.translate("Form", u"\u4ece\u6b64\u5904\u5f00\u59cb\u67e5\u627e\u6587\u4ef6\u5939", None))
-        self.NewFlattenRun.setText(QCoreApplication.translate("Form", u"\u8fd0\u884c", None))
-        self.NewFlattenStop.setText(QCoreApplication.translate("Form", u"\u7ec8\u6b62", None))
-        self.FileMgrChildTab.setTabText(self.FileMgrChildTab.indexOf(self.NewFlattenLayout), QCoreApplication.translate("Form", u"\u5c55\u5e73\uff08\u65b0\uff09", None))
-#if QT_CONFIG(tooltip)
-        self.FileMgrChildTab.setTabToolTip(self.FileMgrChildTab.indexOf(self.NewFlattenLayout), QCoreApplication.translate("Form", u"\u57fa\u4e8e\u6811\u7684\u65b0\u5c55\u5e73\u65b9\u5f0f\uff0c\u4ee5\u5185\u5b58\u5360\u7528\u4e3a\u4ee3\u4ef7\uff0c\u63d0\u9ad8\u5c55\u5e73\u901f\u5ea6", None))
-#endif // QT_CONFIG(tooltip)
         self.MainPage.setTabText(self.MainPage.indexOf(self.FileMgrLayout), QCoreApplication.translate("Form", u"\u6587\u4ef6\u7ba1\u7406", None))
         self.PNG2JPGFindDir.setText(QCoreApplication.translate("Form", u"\u6253\u5f00", None))
         self.PNG2JPGDirTxt.setPlaceholderText(QCoreApplication.translate("Form", u"\u4ece\u6b64\u5904\u5f00\u59cb\u67e5\u627e\u56fe\u50cf", None))
@@ -941,46 +539,6 @@ class Ui_Form(object):
         self.ConvertorChildTab.setTabToolTip(self.ConvertorChildTab.indexOf(self.Seq2PDF), QCoreApplication.translate("Form", u"\u5c06\u4e00\u4e2a\u6587\u4ef6\u5939\u4e2d\u7684\u56fe\u50cf\u5e8f\u5217\u8f6c\u6362\u4e3a\u5355\u4e2a PDF \u6587\u4ef6\uff0c\u4ee5\u7236\u6587\u4ef6\u5939\u547d\u540d\uff0c\u4fdd\u5b58\u5728\u56fe\u50cf\u5e8f\u5217\u6240\u5728\u7684\u4e0a\u4e00\u7ea7\u6587\u4ef6\u5939", None))
 #endif // QT_CONFIG(tooltip)
         self.MainPage.setTabText(self.MainPage.indexOf(self.ConvertorLayout), QCoreApplication.translate("Form", u"\u8f6c\u6362\u5de5\u5177", None))
-        self.UpsComfyUrl.setText(QCoreApplication.translate("Form", u"http://127.0.0.1:8188", None))
-        self.UpsModelDropdown.setCurrentText("")
-        self.UpsModelDropdown.setPlaceholderText(QCoreApplication.translate("Form", u"\u9700\u8981\u5237\u65b0", None))
-        self.UpsRefreshModel.setText(QCoreApplication.translate("Form", u"\u5237\u65b0", None))
-        self.UpsChooseImagePath.setText(QCoreApplication.translate("Form", u"\u6253\u5f00", None))
-        self.UpsImagePath.setPlaceholderText(QCoreApplication.translate("Form", u"\u4ece\u6b64\u5904\u5f00\u59cb\u67e5\u627e\u56fe\u50cf", None))
-        self.UpsRecursive.setText(QCoreApplication.translate("Form", u"\u9012\u5f52\u67e5\u627e", None))
-        self.UpsSavePathOpen.setText(QCoreApplication.translate("Form", u"\u6253\u5f00", None))
-        self.UpsSavePath.setPlaceholderText(QCoreApplication.translate("Form", u"\u5c06\u56fe\u50cf\u4fdd\u5b58\u5230\u6b64\u5904", None))
-        self.UpsHeightThresholdSpin.setSuffix(QCoreApplication.translate("Form", u" \u50cf\u7d20", None))
-        self.UpsHeightThresholdSpin.setPrefix(QCoreApplication.translate("Form", u"\u9ad8\u5ea6\u9608\u503c\uff1a", None))
-        self.UpsJPGThresholdSpin.setSuffix(QCoreApplication.translate("Form", u" KB", None))
-        self.UpsJPGThresholdSpin.setPrefix(QCoreApplication.translate("Form", u"\u5927\u5c0f\u9608\u503c\uff1a", None))
-        self.UpsWidthThresholdSpin.setSuffix(QCoreApplication.translate("Form", u" \u50cf\u7d20", None))
-        self.UpsWidthThresholdSpin.setPrefix(QCoreApplication.translate("Form", u"\u5bbd\u5ea6\u9608\u503c\uff1a", None))
-        self.UpsDownscaleSpin.setPrefix(QCoreApplication.translate("Form", u"\u56fe\u50cf\u7f29\u653e\u4e3a\uff1a", None))
-        self.UpsDownscaleSpin.setSuffix(QCoreApplication.translate("Form", u" \u500d", None))
-        self.UpsRun.setText(QCoreApplication.translate("Form", u"\u8fd0\u884c", None))
-        self.UpsListImg.setText(QCoreApplication.translate("Form", u"\u67e5\u627e\u56fe\u50cf", None))
-        self.UpsStop.setText(QCoreApplication.translate("Form", u"\u7ec8\u6b62", None))
-        self.MediaProcessingChildTab.setTabText(self.MediaProcessingChildTab.indexOf(self.UpsLayout), QCoreApplication.translate("Form", u"ComfyUI \u56fe\u50cf\u653e\u5927", None))
-#if QT_CONFIG(tooltip)
-        self.MediaProcessingChildTab.setTabToolTip(self.MediaProcessingChildTab.indexOf(self.UpsLayout), QCoreApplication.translate("Form", u"\u4f7f\u7528 ComfyUI API \u6279\u91cf\u653e\u5927\u56fe\u7247\n"
-"\u56fe\u50cf\u8def\u5f84\u524d\u7684 T \u4ee3\u8868\u8fd9\u4e2a\u56fe\u7247\u5305\u542b\u900f\u660e\u901a\u9053\uff0cL \u4ee3\u8868\u8fd9\u4e2a\u56fe\u7247\u7684\u957f\u5bbd\u6bd4\u6709\u4e9b\u5947\u602a\uff0c\u53ef\u80fd\u662f\u957f\u622a\u56fe\u6216\u5168\u666f\u56fe", None))
-#endif // QT_CONFIG(tooltip)
-        self.VidTrimInputOpen.setText(QCoreApplication.translate("Form", u"\u6253\u5f00", None))
-        self.VidTrimInputPath.setPlaceholderText(QCoreApplication.translate("Form", u"\u8981\u526a\u5207\u7684\u89c6\u9891\u8def\u5f84", None))
-        self.VidTrimInputPlay.setText(QCoreApplication.translate("Form", u"\u64ad\u653e", None))
-        self.VidTrimOutputOpen.setText(QCoreApplication.translate("Form", u"\u6253\u5f00", None))
-        self.VidTrimOutputPath.setPlaceholderText(QCoreApplication.translate("Form", u"\u8f93\u51fa\u89c6\u9891\u8def\u5f84\uff08\u7559\u7a7a\u4ee5\u4fdd\u5b58\u5230\u8f93\u5165\u6240\u5728\u7684\u6587\u4ef6\u5939\uff09", None))
-        self.VidTrimMode.setItemText(0, QCoreApplication.translate("Form", u"\u622a\u6b62\u4e8e", None))
-        self.VidTrimMode.setItemText(1, QCoreApplication.translate("Form", u"\u5f00\u59cb\u4e8e", None))
-
-        self.VidTrimTime.setDisplayFormat(QCoreApplication.translate("Form", u"HH:mm:ss.zzz", None))
-        self.VidTrimRun.setText(QCoreApplication.translate("Form", u"\u8fd0\u884c", None))
-        self.MediaProcessingChildTab.setTabText(self.MediaProcessingChildTab.indexOf(self.VidTrimLayout), QCoreApplication.translate("Form", u"\u89c6\u9891\u526a\u5207", None))
-#if QT_CONFIG(tooltip)
-        self.MediaProcessingChildTab.setTabToolTip(self.MediaProcessingChildTab.indexOf(self.VidTrimLayout), QCoreApplication.translate("Form", u"\u4e22\u5f03\u4e00\u4e2a\u89c6\u9891\u524d\u6216\u540e\u4e00\u5b9a\u65f6\u95f4\u7684\u90e8\u5206\uff0c\u4e0d\u635f\u5931\u753b\u8d28\n"
-"\u901a\u5e38\u7528\u4e8e\u4e00\u4e9b\u88ab\u586b\u5145\u4e86\u65e0\u5173\u5185\u5bb9\u7684\u89c6\u9891\uff0c\u6bd4\u5982B\u7ad9\u7684\u8d44\u6e90", None))
-#endif // QT_CONFIG(tooltip)
         self.MainPage.setTabText(self.MainPage.indexOf(self.MediaProcessingLayout), QCoreApplication.translate("Form", u"\u5a92\u4f53\u5904\u7406", None))
         self.CropTextInPathOpen.setText(QCoreApplication.translate("Form", u"\u6253\u5f00", None))
         self.CropTextInPath.setPlaceholderText(QCoreApplication.translate("Form", u"\u8f93\u5165\u6587\u4ef6\u8def\u5f84", None))
@@ -1005,6 +563,7 @@ class Ui_Form(object):
         self.CalSimIn1.setPlaceholderText(QCoreApplication.translate("Form", u"\u8f93\u5165\u6587\u672c 1", None))
         self.CalSimIn2.setPlaceholderText(QCoreApplication.translate("Form", u"\u8f93\u5165\u6587\u672c 2", None))
         self.CalSimRun.setText(QCoreApplication.translate("Form", u"\u8ba1\u7b97", None))
+        self.CalSimUnload.setText(QCoreApplication.translate("Form", u"\u5378\u8f7d\u6a21\u578b", None))
         self.TextProcChildTab.setTabText(self.TextProcChildTab.indexOf(self.CalSim), QCoreApplication.translate("Form", u"\u8ba1\u7b97\u76f8\u4f3c\u5ea6", None))
 #if QT_CONFIG(tooltip)
         self.TextProcChildTab.setTabToolTip(self.TextProcChildTab.indexOf(self.CalSim), QCoreApplication.translate("Form", u"\u4f7f\u7528\u5d4c\u5165\u6a21\u578b\u8ba1\u7b97\u4e24\u4e2a\u5b57\u7b26\u4e32\u7684\u8bed\u4e49\u76f8\u4f3c\u5ea6", None))
@@ -1017,16 +576,6 @@ class Ui_Form(object):
         self.TextProcChildTab.setTabToolTip(self.TextProcChildTab.indexOf(self.JsonSorter), QCoreApplication.translate("Form", u"\u5c06JSON\u7684\u952e\u503c\u5bf9\u6309\u952e\u7684\u987a\u5e8f\u6392\u5e8f", None))
 #endif // QT_CONFIG(tooltip)
         self.MainPage.setTabText(self.MainPage.indexOf(self.TextProcessingLayout), QCoreApplication.translate("Form", u"\u6587\u672c\u5904\u7406", None))
-        self.ImageSeqItemAmount.setSuffix(QCoreApplication.translate("Form", u" \u5f20\u56fe\u7247", None))
-        self.ImageSeqItemAmount.setPrefix(QCoreApplication.translate("Form", u"\u751f\u6210 ", None))
-        self.ImageSeqPathOpen.setText(QCoreApplication.translate("Form", u"\u6253\u5f00", None))
-        self.ImageSeqPathInput.setPlaceholderText(QCoreApplication.translate("Form", u"\u5728\u6b64\u76ee\u5f55\u4e0b\u751f\u6210", None))
-        self.ImageSeqGenStart.setText(QCoreApplication.translate("Form", u"\u5f00\u59cb", None))
-        self.ImageSeqGenStop.setText(QCoreApplication.translate("Form", u"\u7ec8\u6b62", None))
-        self.TestChildTab.setTabText(self.TestChildTab.indexOf(self.ImgSeqGen), QCoreApplication.translate("Form", u"\u751f\u6210\u56fe\u50cf\u5e8f\u5217", None))
-        self.QtIconsExport.setText(QCoreApplication.translate("Form", u"\u76f4\u63a5\u5bfc\u51fa", None))
-        self.QtIconsShow.setText(QCoreApplication.translate("Form", u"\u6253\u5f00 GUI", None))
-        self.TestChildTab.setTabText(self.TestChildTab.indexOf(self.QtIconsLayout), QCoreApplication.translate("Form", u"Qt\u5185\u7f6e\u56fe\u6807", None))
         self.MainPage.setTabText(self.MainPage.indexOf(self.TestingLayout), QCoreApplication.translate("Form", u"\u6d4b\u8bd5\u7528", None))
         self.ThemeLabel.setText(QCoreApplication.translate("Form", u"\u9009\u62e9\u4e3b\u9898\uff08\u4e3b\u9898\u8def\u5f84\uff1a./Style\uff09", None))
         self.ThemeConfirm.setText(QCoreApplication.translate("Form", u"\u786e\u5b9a", None))

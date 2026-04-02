@@ -3,9 +3,9 @@ import os.path
 from PySide6.QtCore import Signal, QThread
 from PySide6.QtWidgets import QMessageBox
 
-from Core import log_manager
-from Core.error_codes import ErrorCode
-from Tools.FileManaging import FlattenNew
+from core import log_manager
+from core.error_codes import ErrorCode
+from modules.file_mgr import FlattenNew
 
 logger = log_manager.get_logger(__name__)
 
