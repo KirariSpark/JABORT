@@ -1,0 +1,36 @@
+[project]
+name = "jabort"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+authors = [
+    { name = "KirariSpark", email = "xujianfeng233@163.com" }
+]
+requires-python = ">=3.13"
+dependencies = [
+    "anytree>=2.13.0",
+    "ffmpy>=1.0.0",
+    "llama-cpp-python>=0.3.35",
+    "numpy>=2.5.3",
+    "pathlib>=1.0.1",
+    "pillow>=12.3.0",
+    "pymupdf>=1.28.2",
+    "pyside6>=6.11.2",
+    "requests>=2.34.2",
+    "send2trash>=2.1.0",
+    "websocket-client>=1.9.2",
+]
+
+[project.scripts]
+jabort = "jabort:main"
+
+[[tool.uv.index]]
+url = "https://mirrors.tuna.tsinghua.edu.cn/pypi/web/simple"
+default = true
+
+[[tool.uv.index]]
+url = "https://abetlen.github.io/llama-cpp-python/whl/cpu"
+
+[build-system]
+requires = ["uv_build>=0.12.17,<0.13.0"]
+build-backend = "uv_build"
