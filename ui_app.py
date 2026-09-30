@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'appYJgjdZ.ui'
+## Form generated from reading UI file 'appfJPbbL.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.11.2
 ##
@@ -24,6 +24,7 @@ from pages.file_mgr.ui import FileMgrWidget
 from pages.media_proc.ui import MediaProcWidget
 from pages.tests.ui import TestsWidget
 from pages.text_proc.ui import TextProcWidget
+from widgets.file_conflict_combo import FileConflictCombo
 
 class Ui_Form(object):
     def setupUi(self, Form):
@@ -132,6 +133,11 @@ class Ui_Form(object):
         self.ClearLog.setObjectName(u"ClearLog")
 
         self.verticalLayout_8.addWidget(self.ClearLog)
+
+        self.FileConflictCombo = FileConflictCombo(self.SettingLayout)
+        self.FileConflictCombo.setObjectName(u"FileConflictCombo")
+
+        self.verticalLayout_8.addWidget(self.FileConflictCombo)
 
         self.SettingsSpacer = QSpacerItem(0, 0, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding)
 
