@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'pagenpnrLc.ui'
+## Form generated from reading UI file 'pageNzmJzH.ui'
 ##
-## Created by: Qt User Interface Compiler version 6.10.0
+## Created by: Qt User Interface Compiler version 6.11.2
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
@@ -195,10 +195,6 @@ class Ui_MediaProcTab(object):
         self.UpsList.setWordWrap(True)
 
         self.verticalLayout_4.addWidget(self.UpsList)
-
-        self.UpsSpacer = QSpacerItem(0, 0, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding)
-
-        self.verticalLayout_4.addItem(self.UpsSpacer)
 
         self.MediaProcessingChildTab.addTab(self.UpsLayout, "")
         self.VidTrimLayout = QWidget()

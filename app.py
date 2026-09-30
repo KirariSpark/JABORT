@@ -3,7 +3,6 @@ import os
 import send2trash
 from PySide6.QtWidgets import QApplication, QWidget, QMessageBox
 
-from modules.text_proc import JsonSorter, CalSimilarity, CropText
 from modules.utils import ui_utils
 from Workers import *
 from ui_app import Ui_Form
