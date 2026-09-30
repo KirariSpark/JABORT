@@ -5,6 +5,7 @@ from PySide6.QtWidgets import QWidget, QMessageBox
 from modules.text_proc import JsonSorter, CalSimilarity, CropText
 from modules.utils import ui_utils
 from pages.text_proc.ui_page import Ui_TextProcWidget
+from core import app_config
 
 
 class TextProcWidget(QWidget, Ui_TextProcWidget):
@@ -31,7 +32,7 @@ class TextProcWidget(QWidget, Ui_TextProcWidget):
             input_path=self.CropTextInPath.text(),
             output_path=self.CropTextOutPath.text(),
             percentage=self.CropTextRatioSpinbox.value(),
-            deduplicate=self.CropTextDedup.currentIndex()
+            mode=app_config.get_conflict_mode()
         )
         if res[0].code:
             ui_utils.show_message_box(self, "错误", res[0].generic, QMessageBox.Icon.Critical)

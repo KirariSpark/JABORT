@@ -6,6 +6,7 @@ from PySide6.QtWidgets import QMessageBox
 from core import log_manager
 from core.error_codes import ErrorCode
 from modules.conv import ImgSeq2PDF
+from modules.utils.file_saver import FileConflictMode
 
 logger = log_manager.get_logger(__name__)
 
@@ -14,11 +15,13 @@ class ImgSeq2PDFWorker(QThread):
     progress_updated = Signal(int)
     worker_finished = Signal(tuple)
 
-    def __init__(self, folder: str, send2trash: bool, recursive: bool):
+    def __init__(self, folder: str, send2trash: bool, recursive: bool,
+                 conflict_mode: FileConflictMode = FileConflictMode.AddIndex):
         super().__init__()
         self.folder = folder
         self.send2trash = send2trash
         self.recursive = recursive
+        self.conflict_mode = conflict_mode
         self._stop = False
 
     def run(self):
@@ -35,7 +38,8 @@ class ImgSeq2PDFWorker(QThread):
         results = ImgSeq2PDF.process_image_sequences(
             target_folder=self.folder,
             send_to_trash=self.send2trash,
-            recursive=self.recursive
+            recursive=self.recursive,
+            mode=self.conflict_mode
         )
 
         try:

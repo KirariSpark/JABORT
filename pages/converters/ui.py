@@ -3,6 +3,7 @@ from PySide6.QtWidgets import QWidget
 from Workers import ImgSeq2PDFWorker, PNG2JPGWorker
 from pages.converters.ui_page import Ui_ConverterWidget
 from modules.utils import ui_utils
+from core import app_config
 
 class ConverterWidget(QWidget, Ui_ConverterWidget):
     def __init__(self, parent = None):
@@ -32,7 +33,7 @@ class ConverterWidget(QWidget, Ui_ConverterWidget):
             skip_transparency=self.PNG2JPGSkipAlpha.isChecked(),
             preserve_metadata=self.PNG2JPGPreverveMeta.isChecked(),
             delete_origin=self.PNG2JPGDelOri.isChecked(),
-            deduplicate=self.PNG2JPGDedup.currentIndex()
+            conflict_mode=app_config.get_conflict_mode()
         )
         self.png2jpg_worker.progress_updated.connect(lambda v: self.PNG2JPGProgress.setValue(int(v)))
         self.png2jpg_worker.worker_finished.connect(lambda: self.PNG2JPGRun.setEnabled(True))
@@ -46,7 +47,8 @@ class ConverterWidget(QWidget, Ui_ConverterWidget):
         self.seq2pdf_worker = ImgSeq2PDFWorker(
             folder=self.Seq2PDFPathInput.text(),
             recursive=self.Seq2PDFRecursive.isChecked(),
-            send2trash=self.Seq2PDFDel.isChecked()
+            send2trash=self.Seq2PDFDel.isChecked(),
+            conflict_mode=app_config.get_conflict_mode()
         )
         self.seq2pdf_worker.worker_finished.connect(lambda: self.Seq2PDFRun.setEnabled(True))
         self.seq2pdf_worker.worker_finished.connect(lambda: self.Seq2PDFStop.setEnabled(False))

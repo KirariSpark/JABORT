@@ -1,6 +1,7 @@
 import json
 import os
 import re
+import shutil
 from enum import Enum
 from typing import Any, Callable
 
@@ -180,3 +181,60 @@ def save_json(path: str, data: Any, mode: FileConflictMode = FileConflictMode.Ad
             json.dump(data, f, indent=indent, ensure_ascii=ensure_ascii)
 
     return save_with(path, writer, mode)
+
+
+def build_output_path(input_path: str, prefix: str = "", suffix: str = "",
+                      spacing: str = "", mode: FileConflictMode = FileConflictMode.AddIndex) -> tuple[ErrorCode, str]:
+    """
+    构建带前后缀的输出路径，并按模式处理重名冲突
+
+    Args:
+        input_path: 输入文件路径
+        prefix: 追加到文件名前的前缀
+        suffix: 追加到文件名后的后缀
+        spacing: 前后缀与原文件名之间的填充字符
+        mode: 冲突处理模式
+
+    Returns:
+        元组，第一项为错误码，第二项为输出文件路径
+    """
+    safe_prefix = prefix.replace('/', '').replace('\\', '')
+    safe_suffix = suffix.replace('/', '').replace('\\', '')
+
+    folder = os.path.dirname(input_path)
+    name, ext = os.path.splitext(os.path.basename(input_path))
+    name = f"{safe_prefix}{spacing if safe_prefix else ''}{name}{spacing if safe_suffix else ''}{safe_suffix}"
+    output_path = os.path.join(folder, f"{name}{ext}")
+
+    return resolve_conflict(output_path, mode)
+
+
+def move_with(src: str, dst: str,
+              mode: FileConflictMode = FileConflictMode.AddIndex) -> tuple[ErrorCode, str]:
+    """
+    按冲突模式解析目标路径后，将源文件/文件夹移动到目标路径
+
+    Args:
+        src: 源路径
+        dst: 目标路径
+        mode: 冲突处理模式
+
+    Returns:
+        元组，第一项为错误码，第二项为实际移动到的目标路径
+    """
+    err, final_path = resolve_conflict(dst, mode)
+    # 冲突解析失败或命中跳过 - 不移动
+    if err is not ErrorCode.Success:
+        return err, final_path
+
+    try:
+        shutil.move(src, final_path)
+    except PermissionError as e:
+        logger.error(ErrorCode.NotPermitted.format(str(e)))
+        return ErrorCode.NotPermitted, final_path
+    except Exception as e:
+        logger.error(ErrorCode.CannotWriteFile.format(str(e)))
+        return ErrorCode.CannotWriteFile, final_path
+
+    logger.info(f"已移动：{src} -> {final_path}")
+    return ErrorCode.Success, final_path

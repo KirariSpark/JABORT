@@ -3,6 +3,7 @@ from PySide6.QtWidgets import QWidget
 from Workers import FlattenWorker, NewFlattenWorker
 from pages.file_mgr.ui_page import Ui_FileMgrTab
 from modules.utils import ui_utils
+from core import app_config
 
 class FileMgrWidget(QWidget, Ui_FileMgrTab):
     def __init__(self, parent = None):
@@ -22,7 +23,7 @@ class FileMgrWidget(QWidget, Ui_FileMgrTab):
     def flatten_run(self):
         self.FlattenRun.setEnabled(False)
         self.FlattenStop.setEnabled(True)
-        self.flatten_worker = FlattenWorker(self.FlattenDirInput.text())
+        self.flatten_worker = FlattenWorker(self.FlattenDirInput.text(), app_config.get_conflict_mode())
         self.flatten_worker.worker_finished.connect(lambda: self.FlattenRun.setEnabled(True))
         self.flatten_worker.worker_finished.connect(lambda: self.FlattenStop.setEnabled(False))
         self.flatten_worker.worker_finished.connect(lambda t: ui_utils.show_message_box(self, t[0], t[1], t[2]))
@@ -31,7 +32,7 @@ class FileMgrWidget(QWidget, Ui_FileMgrTab):
     def new_flatten_run(self):
         self.NewFlattenRun.setEnabled(False)
         self.NewFlattenStop.setEnabled(True)
-        self.new_flatten_worker = NewFlattenWorker(self.NewFlattenDirInput.text())
+        self.new_flatten_worker = NewFlattenWorker(self.NewFlattenDirInput.text(), app_config.get_conflict_mode())
         self.new_flatten_worker.progress_updated.connect(lambda v: self.NewFlattenProgress.setValue(v))
         self.new_flatten_worker.worker_finished.connect(lambda: self.NewFlattenRun.setEnabled(True))
         self.new_flatten_worker.worker_finished.connect(lambda: self.NewFlattenStop.setEnabled(False))

@@ -5,6 +5,7 @@ from PySide6.QtCore import QThread, Signal
 from PySide6.QtWidgets import QMessageBox
 
 from modules.conv import PNG2JPG
+from modules.utils.file_saver import FileConflictMode
 from core import log_manager
 from core.error_codes import ErrorCode
 
@@ -16,7 +17,7 @@ class PNG2JPGWorker(QThread):
     worker_finished = Signal(tuple)
 
     def __init__(self, image_dir: str, recursive: bool, quality: int, skip_transparency: bool,
-                 preserve_metadata: bool, delete_origin: bool, deduplicate: int):
+                 preserve_metadata: bool, delete_origin: bool, conflict_mode: FileConflictMode = FileConflictMode.AddIndex):
         """
         PNG转JPG初始化
 
@@ -28,7 +29,7 @@ class PNG2JPGWorker(QThread):
         :param skip_transparency: 跳过有透明通道的图像
         :param preserve_metadata: 保留元数据
         :param delete_origin: 是否在转换后删除原文件
-        :param deduplicate: 去重模式，0覆盖，1跳过，2增加序号
+        :param conflict_mode: 冲突处理模式
         """
         super().__init__()
         self.image_dir = image_dir
@@ -39,7 +40,7 @@ class PNG2JPGWorker(QThread):
         self.skip_trans = skip_transparency
         self.metadata = preserve_metadata
         self.delete_origin = delete_origin
-        self.deduplicate = deduplicate
+        self.conflict_mode = conflict_mode
         self._stop = False
 
     def get_images(self):
@@ -73,7 +74,7 @@ class PNG2JPGWorker(QThread):
             images=self.image_list,
             quality=self.quality,
             preserve_metadata=self.metadata,
-            deduplicate=self.deduplicate
+            mode=self.conflict_mode
         )
         for item in res:
             # 手动终止

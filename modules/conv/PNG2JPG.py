@@ -6,12 +6,13 @@ from PIL import Image, UnidentifiedImageError
 
 from core import log_manager
 from core.error_codes import ErrorCode
-from modules.utils import utils
+from modules.utils import file_saver, utils
+from modules.utils.file_saver import FileConflictMode
 
 logger = log_manager.get_logger(__name__)
 
 
-def convert_single(input_path: str, quality: int, preserve_metadata: bool, deduplicate: int,
+def convert_single(input_path: str, quality: int, preserve_metadata: bool, mode: FileConflictMode,
                    old: str = "png") -> tuple[ErrorCode, str]:
     """
     转换单个图像文件
@@ -19,7 +20,7 @@ def convert_single(input_path: str, quality: int, preserve_metadata: bool, dedup
     :param input_path: 图像路径
     :param quality: 质量
     :param preserve_metadata: 保留元数据
-    :param deduplicate: 去重模式，0 - 覆盖，1 - 跳过，2 - 保留两者（会添加序号）
+    :param mode: 冲突处理模式
     :param old: 旧文件的扩展名，因为它不只能转PNG，也可以转别的，此处留下这个接口以便其他脚本调用
     :return: 包含错误码和新文件路径的元组
     """
@@ -33,33 +34,30 @@ def convert_single(input_path: str, quality: int, preserve_metadata: bool, dedup
         output_path = utils.remove_substring(input_path, old, "suffix") + "jpg"
         if not output_path.endswith(".jpg"):
             output_path = output_path + ".jpg"
-        dedup_res = utils.filename_deduplicate(deduplicate, output_path)
-        if dedup_res[0] != ErrorCode.Success:
-            logger.error(dedup_res[0].format(input_path))
-            return dedup_res
-        else:
-            output_path = dedup_res[1]
-            logger.debug(f"构建的输出图像路径：{output_path}")
+        logger.debug(f"构建的输出图像路径：{output_path}")
 
         # 转换
-        if preserve_metadata:
-            image.save(output_path, 'JPEG', quality=quality, metadata=image.info)
-        else:
-            image.save(output_path, 'JPEG', quality=quality)
+        def writer(final_path: str):
+            if preserve_metadata:
+                image.save(final_path, 'JPEG', quality=quality, metadata=image.info)
+            else:
+                image.save(final_path, 'JPEG', quality=quality)
 
-        logger.info(f"已转换 {output_path}")
-        return ErrorCode.Success, output_path
+        res = file_saver.save_with(output_path, writer, mode)
+        if res[0] == ErrorCode.Success:
+            logger.info(f"已转换 {res[1]}")
+        return res
 
 
 def convert_batch(images: list, quality: int, preserve_metadata: bool,
-                  deduplicate: int) -> Generator[tuple[ErrorCode, int], None, tuple[ErrorCode, int]]:
+                  mode: FileConflictMode) -> Generator[tuple[ErrorCode, int], None, tuple[ErrorCode, int]]:
     """
     对输入的路径列表进行批量转换
 
     :param images: 所有图像文件路径的列表
     :param quality: 质量
     :param preserve_metadata: 保留元数据
-    :param deduplicate: 去重模式，0 - 覆盖，1 - 跳过，2 - 保留两者（会添加序号）
+    :param mode: 冲突处理模式
     :return: 返回生成器，第一项为当前进度，第二项为错误码
     """
     if not images:
@@ -74,7 +72,7 @@ def convert_batch(images: list, quality: int, preserve_metadata: bool,
                     logger.error(ErrorCode.InvalidPath.format(image))
                     return ErrorCode.InvalidPath, 0
                 res = convert_single(input_path=image, quality=quality, preserve_metadata=preserve_metadata,
-                                     deduplicate=deduplicate)
+                                     mode=mode)
                 if res[0] == ErrorCode.Success:
                     yield ErrorCode.Success, int(((index + 1) / length) * 100)
                 elif res[0] == ErrorCode.FileSkipped:

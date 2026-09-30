@@ -9,7 +9,8 @@ import send2trash
 from core import log_manager
 from core.error_codes import ErrorCode
 from modules.conv import PNG2JPG
-from modules.utils import utils
+from modules.utils import file_saver
+from modules.utils.file_saver import FileConflictMode
 
 logger = log_manager.get_logger(__name__)
 
@@ -105,10 +106,13 @@ def find_image_sequences(root_folder: str, recursive: bool = False) -> tuple[Err
     return ErrorCode.Success, all_sequences_info
 
 
-def create_pdf_from_sequence(sequence_info: SequenceInfo) -> tuple[ErrorCode, list[str]]:
+def create_pdf_from_sequence(sequence_info: SequenceInfo,
+                             mode: FileConflictMode = FileConflictMode.AddIndex) -> tuple[ErrorCode, list[str]]:
     """
     将一个图像序列转换为一个PDF文件。
 
+    :param sequence_info: 图像序列信息
+    :param mode: 冲突处理模式
     :return: 元组，第一项是错误码，后面的列表为遇到webp，转换后文件路径的列表
     """
     folder_path = sequence_info["folder"]
@@ -118,8 +122,11 @@ def create_pdf_from_sequence(sequence_info: SequenceInfo) -> tuple[ErrorCode, li
     # 输出PDF路径
     parent_dir = os.path.dirname(folder_path)
     folder_name = os.path.basename(folder_path)
-    output_path = utils.get_unique_filename(os.path.join(parent_dir, f"{folder_name}.pdf"))
-    logger.debug(f"正在创建PDF: {output_path[1]}, 源文件数: {len(image_paths)}")
+    err, pdf_path = file_saver.resolve_conflict(os.path.join(parent_dir, f"{folder_name}.pdf"), mode)
+    if err != ErrorCode.Success:
+        logger.error(err.generic)
+        return err, extras
+    logger.debug(f"正在创建PDF: {pdf_path}, 源文件数: {len(image_paths)}")
 
     try:
         pdf_document = fitz.open()
@@ -127,7 +134,7 @@ def create_pdf_from_sequence(sequence_info: SequenceInfo) -> tuple[ErrorCode, li
         for img_path in image_paths:
             # 针对webp的转换
             if img_path.endswith(".webp"):
-                res = PNG2JPG.convert_single(img_path, 80, False, 2, "webp")
+                res = PNG2JPG.convert_single(img_path, 80, False, mode, "webp")
                 if res[0] == ErrorCode.Success:
                     img_path = res[1]
                     extras.append(res[1])
@@ -143,9 +150,9 @@ def create_pdf_from_sequence(sequence_info: SequenceInfo) -> tuple[ErrorCode, li
             img_pdf.close()
             img_doc.close()
             # 保存 PDF
-            pdf_document.save(output_path[1])
+            pdf_document.save(pdf_path)
 
-        logger.info(f"成功创建PDF: {output_path[1]}")
+        logger.info(f"成功创建PDF: {pdf_path}")
         pdf_document.close()
         return ErrorCode.Success, extras
     except Exception as e:
@@ -200,10 +207,12 @@ def cleanup_original_files(sequence_info: SequenceInfo, send_to_trash_flag: bool
 
 
 def process_image_sequences(target_folder: str, recursive: bool = False,
-                            send_to_trash: bool = False) -> Generator[tuple[ErrorCode, int], None, None]:
+                            send_to_trash: bool = False,
+                            mode: FileConflictMode = FileConflictMode.AddIndex) -> Generator[tuple[ErrorCode, int], None, None]:
     """
     处理图像序列转PDF的主函数。
 
+    :param mode: 冲突处理模式
     :return: 包含状态码和进度的生成器
     """
     # 查找所有图像序列
@@ -225,7 +234,7 @@ def process_image_sequences(target_folder: str, recursive: bool = False,
     for i, seq_info in enumerate(sequences, 1):
         progress = int((i / seq_length) * 100)
 
-        res = create_pdf_from_sequence(seq_info)
+        res = create_pdf_from_sequence(seq_info, mode)
 
         if res[0] != ErrorCode.Success:
             logger.warning(f"序列 {i} 处理失败，跳过清理")

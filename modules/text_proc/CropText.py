@@ -4,18 +4,19 @@ from charset_normalizer import from_path
 
 from core import log_manager
 from core.error_codes import ErrorCode
-from modules.utils import utils
+from modules.utils import file_saver
+from modules.utils.file_saver import FileConflictMode
 
 logger = log_manager.get_logger(__name__)
 
 
 def crop_text_file(input_path: str, output_path: str = None, percentage: int = 50,
-                   deduplicate: int = 2) -> tuple[ErrorCode, str]:
+                   mode: FileConflictMode = FileConflictMode.AddIndex) -> tuple[ErrorCode, str]:
     """
     截取文本文件的后x%并保存
 
     Args:
-        deduplicate: 去重模式，0 - 覆盖，1 - 跳过，2 - 保留两者（会添加序号）
+        mode: 冲突处理模式
         input_path: 源文件路径
         output_path: 输出文件路径。若为None，则自动生成
         percentage: 截取比例(0-100)，表示截取后x%的内容
@@ -42,15 +43,6 @@ def crop_text_file(input_path: str, output_path: str = None, percentage: int = 5
         )
         logger.debug(f"未提供输出路径，生成：{output_path}")
 
-    # 去重
-    dedup_res = utils.filename_deduplicate(deduplicate, output_path)
-    logger.debug(f"去重结果：{dedup_res}")
-    if dedup_res[0] != ErrorCode.Success:
-        logger.error(dedup_res[0].format(output_path))
-        return dedup_res[0], ""
-    else:
-        output_path = dedup_res[1]
-
     # 读取源文件内容
     best_match = from_path(input_path).best()
     logger.debug(f"检测到的编码信息：{best_match.encoding}")
@@ -72,12 +64,7 @@ def crop_text_file(input_path: str, output_path: str = None, percentage: int = 5
         cropped_lines = lines[start_index:]
 
     # 写入输出文件
-    try:
-        with open(output_path, 'w', encoding='utf-8') as f:
-            f.writelines(cropped_lines)
-            logger.info(f"已将截取后的文件写入到 {output_path}")
-    except Exception as e:
-        logger.error(ErrorCode.CannotWriteFile.format(str(e)))
-        return ErrorCode.CannotWriteFile, ""
-
-    return ErrorCode.Success, output_path
+    res = file_saver.save_text(output_path, "".join(cropped_lines), mode)
+    if res[0] == ErrorCode.Success:
+        logger.info(f"已将截取后的文件写入到 {res[1]}")
+    return res
