@@ -59,319 +59,23 @@
        <string>转换工具</string>
       </attribute>
       <layout class="QVBoxLayout" name="verticalLayout_3">
+       <property name="spacing">
+        <number>0</number>
+       </property>
+       <property name="leftMargin">
+        <number>0</number>
+       </property>
+       <property name="topMargin">
+        <number>0</number>
+       </property>
+       <property name="rightMargin">
+        <number>0</number>
+       </property>
+       <property name="bottomMargin">
+        <number>0</number>
+       </property>
        <item>
-        <widget class="QTabWidget" name="ConvertorChildTab">
-         <property name="currentIndex">
-          <number>0</number>
-         </property>
-         <property name="movable">
-          <bool>true</bool>
-         </property>
-         <widget class="QWidget" name="PNG2JPG">
-          <attribute name="title">
-           <string>PNG 转 JPG</string>
-          </attribute>
-          <attribute name="toolTip">
-           <string>批量的将 PNG 图像转换为 JPG 图像</string>
-          </attribute>
-          <layout class="QVBoxLayout" name="verticalLayout">
-           <item>
-            <layout class="QHBoxLayout" name="PNG2JPGDir">
-             <item>
-              <widget class="QPushButton" name="PNG2JPGFindDir">
-               <property name="sizePolicy">
-                <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
-                 <horstretch>0</horstretch>
-                 <verstretch>0</verstretch>
-                </sizepolicy>
-               </property>
-               <property name="text">
-                <string>打开</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QLineEdit" name="PNG2JPGDirTxt">
-               <property name="sizePolicy">
-                <sizepolicy hsizetype="Expanding" vsizetype="Minimum">
-                 <horstretch>0</horstretch>
-                 <verstretch>0</verstretch>
-                </sizepolicy>
-               </property>
-               <property name="placeholderText">
-                <string>从此处开始查找图像</string>
-               </property>
-               <property name="clearButtonEnabled">
-                <bool>true</bool>
-               </property>
-              </widget>
-             </item>
-            </layout>
-           </item>
-           <item>
-            <layout class="QGridLayout" name="PNG2JPGOptions">
-             <item row="0" column="0">
-              <widget class="QPushButton" name="PNG2JPGDelOri">
-               <property name="text">
-                <string>删除原文件</string>
-               </property>
-               <property name="checkable">
-                <bool>true</bool>
-               </property>
-              </widget>
-             </item>
-             <item row="0" column="2">
-              <widget class="QPushButton" name="PNG2JPGPreverveMeta">
-               <property name="text">
-                <string>保留元数据</string>
-               </property>
-               <property name="checkable">
-                <bool>true</bool>
-               </property>
-              </widget>
-             </item>
-             <item row="0" column="1">
-              <widget class="QPushButton" name="PNG2JPGSkipAlpha">
-               <property name="text">
-                <string>跳过透明图</string>
-               </property>
-               <property name="checkable">
-                <bool>true</bool>
-               </property>
-              </widget>
-             </item>
-             <item row="1" column="0">
-              <widget class="QPushButton" name="PNG2JPGWalk">
-               <property name="text">
-                <string>递归查找</string>
-               </property>
-               <property name="checkable">
-                <bool>true</bool>
-               </property>
-              </widget>
-             </item>
-             <item row="1" column="1" colspan="2">
-              <widget class="QComboBox" name="PNG2JPGDedup">
-               <property name="currentIndex">
-                <number>2</number>
-               </property>
-               <property name="placeholderText">
-                <string>重复的文件</string>
-               </property>
-               <item>
-                <property name="text">
-                 <string>重复的文件：覆盖</string>
-                </property>
-               </item>
-               <item>
-                <property name="text">
-                 <string>重复的文件：跳过</string>
-                </property>
-               </item>
-               <item>
-                <property name="text">
-                 <string>重复的文件：增加序号</string>
-                </property>
-               </item>
-              </widget>
-             </item>
-            </layout>
-           </item>
-           <item>
-            <layout class="QHBoxLayout" name="PNG2JPGQuality">
-             <item>
-              <widget class="QLabel" name="PNG2JPGQualityTxt">
-               <property name="text">
-                <string>质量</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QSlider" name="PNG2JPGQualitySlider">
-               <property name="minimum">
-                <number>1</number>
-               </property>
-               <property name="maximum">
-                <number>100</number>
-               </property>
-               <property name="value">
-                <number>80</number>
-               </property>
-               <property name="orientation">
-                <enum>Qt::Orientation::Horizontal</enum>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QLabel" name="PNG2JPGQualityNum">
-               <property name="text">
-                <string>80</string>
-               </property>
-              </widget>
-             </item>
-            </layout>
-           </item>
-           <item>
-            <widget class="QProgressBar" name="PNG2JPGProgress">
-             <property name="value">
-              <number>0</number>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignTop</set>
-             </property>
-             <property name="textVisible">
-              <bool>false</bool>
-             </property>
-             <property name="invertedAppearance">
-              <bool>false</bool>
-             </property>
-             <property name="format">
-              <string>%p %</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <layout class="QHBoxLayout" name="PNG2JPGBtns">
-             <item>
-              <widget class="QPushButton" name="PNG2JPGRun">
-               <property name="sizePolicy">
-                <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
-                 <horstretch>0</horstretch>
-                 <verstretch>0</verstretch>
-                </sizepolicy>
-               </property>
-               <property name="text">
-                <string>运行</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QPushButton" name="PNG2JPGStop">
-               <property name="enabled">
-                <bool>false</bool>
-               </property>
-               <property name="text">
-                <string>终止</string>
-               </property>
-              </widget>
-             </item>
-            </layout>
-           </item>
-           <item>
-            <spacer name="PNG2JPGSpacer">
-             <property name="orientation">
-              <enum>Qt::Orientation::Vertical</enum>
-             </property>
-             <property name="sizeHint" stdset="0">
-              <size>
-               <width>0</width>
-               <height>0</height>
-              </size>
-             </property>
-            </spacer>
-           </item>
-          </layout>
-         </widget>
-         <widget class="QWidget" name="Seq2PDF">
-          <attribute name="title">
-           <string>图像序列转 PDF</string>
-          </attribute>
-          <attribute name="toolTip">
-           <string>将一个文件夹中的图像序列转换为单个 PDF 文件，以父文件夹命名，保存在图像序列所在的上一级文件夹</string>
-          </attribute>
-          <layout class="QVBoxLayout" name="verticalLayout_18">
-           <item>
-            <layout class="QHBoxLayout" name="Seq2PDFPath">
-             <item>
-              <widget class="QPushButton" name="Seq2PDFPathOpen">
-               <property name="text">
-                <string>打开</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QLineEdit" name="Seq2PDFPathInput">
-               <property name="placeholderText">
-                <string>从此处开始查找图像</string>
-               </property>
-               <property name="clearButtonEnabled">
-                <bool>true</bool>
-               </property>
-              </widget>
-             </item>
-            </layout>
-           </item>
-           <item>
-            <layout class="QHBoxLayout" name="Seq2PDOptions">
-             <item>
-              <widget class="QPushButton" name="Seq2PDFDel">
-               <property name="text">
-                <string>删除原文件</string>
-               </property>
-               <property name="checkable">
-                <bool>true</bool>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QPushButton" name="Seq2PDFRecursive">
-               <property name="text">
-                <string>递归查找</string>
-               </property>
-               <property name="checkable">
-                <bool>true</bool>
-               </property>
-              </widget>
-             </item>
-            </layout>
-           </item>
-           <item>
-            <widget class="QProgressBar" name="Seq2PDFProgress">
-             <property name="value">
-              <number>0</number>
-             </property>
-             <property name="textVisible">
-              <bool>false</bool>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <layout class="QHBoxLayout" name="Seq2PDFBtns">
-             <item>
-              <widget class="QPushButton" name="Seq2PDFRun">
-               <property name="text">
-                <string>运行</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QPushButton" name="Seq2PDFStop">
-               <property name="enabled">
-                <bool>false</bool>
-               </property>
-               <property name="text">
-                <string>终止</string>
-               </property>
-              </widget>
-             </item>
-            </layout>
-           </item>
-           <item>
-            <spacer name="Seq2PDFSpacer">
-             <property name="orientation">
-              <enum>Qt::Orientation::Vertical</enum>
-             </property>
-             <property name="sizeHint" stdset="0">
-              <size>
-               <width>0</width>
-               <height>0</height>
-              </size>
-             </property>
-            </spacer>
-           </item>
-          </layout>
-         </widget>
-        </widget>
+        <widget class="ConverterWidget" name="ConverterWidget" native="true"/>
        </item>
       </layout>
      </widget>
@@ -532,6 +236,12 @@
    <class>TextProcWidget</class>
    <extends>QWidget</extends>
    <header>pages.text_proc.ui</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>ConverterWidget</class>
+   <extends>QWidget</extends>
+   <header>pages.converters.ui</header>
    <container>1</container>
   </customwidget>
  </customwidgets>
