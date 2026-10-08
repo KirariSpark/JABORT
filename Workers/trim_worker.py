@@ -5,7 +5,8 @@ from PySide6.QtWidgets import QMessageBox
 
 from core import log_manager
 from core.error_codes import ErrorCode
-from modules.utils import utils
+from modules.utils import file_saver
+from modules.utils.file_saver import FileConflictMode
 from modules.media_proc import VideoTrim
 
 logger = log_manager.get_logger(__name__)
@@ -14,12 +15,14 @@ class TrimmerWorker(QThread):
     worker_finished = Signal(tuple)
     output_path_built = Signal(str)
 
-    def __init__(self, input_path: str, input_time: QTime, output_path: str, preserve: int):
+    def __init__(self, input_path: str, input_time: QTime, output_path: str, preserve: int,
+                 conflict_mode: FileConflictMode = FileConflictMode.AddIndex):
         super().__init__()
         self.input_path = input_path
         self.input_time = input_time
         self.output_path = output_path
         self.preserve = preserve
+        self.conflict_mode = conflict_mode
 
     def run(self):
         logger.info(f"开始剪切：{self.input_path}")
@@ -35,11 +38,11 @@ class TrimmerWorker(QThread):
             return
         # 构建输出
         elif not self.output_path:
-            build_res = utils.build_output_path(
-                input_path=self.input_path, suffix=self.input_time.toString("HHmmss"), spacing="_"
+            build_res = file_saver.build_output_path(
+                self.input_path, suffix=self.input_time.toString("HHmmss"), spacing="_", mode=self.conflict_mode
             )
         else:
-            build_res = utils.filename_deduplicate(2, self.output_path)
+            build_res = file_saver.resolve_conflict(self.output_path, self.conflict_mode)
         # 检查构建结果
         if build_res[0] == ErrorCode.FileSkipped:
             logger.info(f"已跳过输出，因为输出文件路径已存在")

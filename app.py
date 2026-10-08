@@ -3,6 +3,7 @@ import os
 import send2trash
 from PySide6.QtWidgets import QApplication, QWidget, QMessageBox
 
+from core import app_config
 from modules.utils import ui_utils
 from ui_app import Ui_Form
 
@@ -21,6 +22,9 @@ class MyWindow(QWidget, Ui_Form):
         # 设置页面信号
         self.ThemeConfirm.clicked.connect(self.set_stylesheet)
         self.ClearLog.clicked.connect(self.clear_log)
+        # 冲突处理模式：先按持久化值初始化，再连接信号
+        self.FileConflictCombo.set_current_mode(app_config.get_conflict_mode())
+        self.FileConflictCombo.currentIndexChanged.connect(self.save_conflict_mode)
 
     # 在当前线程运行的函数
     def set_stylesheet(self):
@@ -38,6 +42,9 @@ class MyWindow(QWidget, Ui_Form):
                 ui_utils.show_message_box(self, "错误", "没有日志文件", QMessageBox.Icon.Warning)
         except Exception as e:
             ui_utils.show_message_box(self, "错误", f"无法删除日志：{e}", QMessageBox.Icon.Critical)
+
+    def save_conflict_mode(self):
+        app_config.set_conflict_mode(self.FileConflictCombo.current_mode())
 
 
 if __name__ == '__main__':

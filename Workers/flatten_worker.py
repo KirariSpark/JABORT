@@ -6,6 +6,7 @@ from PySide6.QtWidgets import QMessageBox
 from core import log_manager
 from core.error_codes import ErrorCode
 from modules.file_mgr import Flatten
+from modules.utils.file_saver import FileConflictMode
 
 logger = log_manager.get_logger(__name__)
 
@@ -13,7 +14,7 @@ logger = log_manager.get_logger(__name__)
 class FlattenWorker(QThread):
     worker_finished = Signal(tuple)
 
-    def __init__(self, folder: str):
+    def __init__(self, folder: str, conflict_mode: FileConflictMode = FileConflictMode.AddIndex):
         """
         初始化展平 worker
 
@@ -21,12 +22,14 @@ class FlattenWorker(QThread):
 
         Args:
             folder: 展平这个文件夹
+            conflict_mode: 冲突处理模式
 
         Returns:
              None
         """
         super().__init__()
         self.folder = folder
+        self.conflict_mode = conflict_mode
         self._stop = False
 
     def stop(self):
@@ -49,7 +52,7 @@ class FlattenWorker(QThread):
             error_count = 0
 
             # 生成器
-            generator = Flatten.main(self.folder)
+            generator = Flatten.main(self.folder, self.conflict_mode)
 
             for result in generator:
                 if self._stop:

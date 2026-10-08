@@ -6,6 +6,7 @@ from PySide6.QtWidgets import QWidget
 from Workers import TrimmerWorker, UpscalerWorker
 from modules.utils import ui_utils
 from pages.media_proc.ui_page import Ui_MediaProcTab
+from core import app_config
 
 
 class MediaProcWidget(QWidget, Ui_MediaProcTab):
@@ -82,7 +83,8 @@ class MediaProcWidget(QWidget, Ui_MediaProcTab):
             input_path=self.VidTrimInputPath.text(),
             input_time=self.VidTrimTime.time(),
             output_path=self.VidTrimOutputPath.text(),
-            preserve=self.VidTrimMode.currentIndex()
+            preserve=self.VidTrimMode.currentIndex(),
+            conflict_mode=app_config.get_conflict_mode()
         )
         self.trimmer_worker.worker_finished.connect(lambda: self.VidTrimRun.setEnabled(True))
         self.trimmer_worker.worker_finished.connect(lambda: self.VidTrimRun.setText("运行"))
@@ -106,6 +108,7 @@ class MediaProcWidget(QWidget, Ui_MediaProcTab):
             image_list=[self.UpsList.item(i).text() for i in range(self.UpsList.count())],
             save_dir=self.UpsSavePath.text(),
             mode=mode,
+            conflict_mode=app_config.get_conflict_mode(),
         )
         self.upscaler_worker.worker_finished.connect(lambda: self.UpsRun.setEnabled(True))
         self.upscaler_worker.worker_finished.connect(lambda: self.UpsListImg.setEnabled(True))

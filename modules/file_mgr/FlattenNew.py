@@ -1,11 +1,11 @@
 import os
-import shutil
 from typing import Generator
 
 from anytree import Node
 from send2trash import send2trash
 
-from modules.utils import utils
+from modules.utils import file_saver
+from modules.utils.file_saver import FileConflictMode
 from core import log_manager
 from core.error_codes import ErrorCode
 
@@ -67,11 +67,12 @@ def build_tree(root_path) -> tuple[ErrorCode, FsNode | None]:
         return ErrorCode.Unknown, None
 
 
-def flatten(root_path: str) -> Generator[tuple[ErrorCode, int], None, None]:
+def flatten(root_path: str, mode: FileConflictMode = FileConflictMode.AddIndex) -> Generator[tuple[ErrorCode, int], None, None]:
     """
     执行文件展平操作
     Args:
         root_path: 要展平的文件夹
+        mode: 冲突处理模式
 
     Returns:
         生成器，包含当前进度（0-100）
@@ -168,20 +169,18 @@ def flatten(root_path: str) -> Generator[tuple[ErrorCode, int], None, None]:
 
             logger.debug(f"处理第 {i + 1}/{total_ops} 项: {os.path.basename(source)}")
 
-            _, target_path = utils.get_unique_filename(expected_target)
-
-            # 执行队列项
-            try:
-                logger.info(f"移动文件: {os.path.basename(source)} -> {os.path.basename(target_path)}")
-                shutil.move(source, target_path)
-                logger.debug(ErrorCode.Success.format(f"{source} -> {target_path}"))
+            # 执行队列项（按冲突模式处理重名）
+            err, target_path = file_saver.move_with(source, expected_target, mode)
+            if err == ErrorCode.FileSkipped:
+                logger.info(f"已跳过重复文件: {source}")
                 yield ErrorCode.Success, int((i + 1) * 100 / total_ops)
-            except PermissionError as e:
-                logger.error(ErrorCode.NotPermitted.format(f"{source} -> {target_path}") + str(e))
-                yield ErrorCode.NotPermitted, int((i + 1) * 100 / total_ops)
-            except Exception as e:
-                logger.error(f"无法移动 {source} 到 {target_path}: {e}")
-                yield ErrorCode.Unknown, int((i + 1) * 100 / total_ops)
+                continue
+            if err != ErrorCode.Success:
+                logger.error(err.generic)
+                yield err, int((i + 1) * 100 / total_ops)
+                continue
+            logger.info(f"移动文件: {os.path.basename(source)} -> {os.path.basename(target_path)}")
+            yield ErrorCode.Success, int((i + 1) * 100 / total_ops)
     else:
         logger.info("没有需要移动的文件")
         yield ErrorCode.Success, 100

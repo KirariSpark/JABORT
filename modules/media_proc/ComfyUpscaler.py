@@ -9,14 +9,16 @@ from PIL import Image, UnidentifiedImageError
 
 from core import log_manager
 from core.error_codes import ErrorCode
-from modules.utils import utils
+from modules.utils import file_saver
+from modules.utils.file_saver import FileConflictMode
 
 logger = log_manager.get_logger(__name__)
 
 
 class ImageUpscaler:
     def __init__(self, height_thresh: int, width_thresh: int, size_thresh: int, img_dir: str, model_name: str,
-                 url: str, downscale: float, recursive: bool, save_dir: str):
+                 url: str, downscale: float, recursive: bool, save_dir: str,
+                 mode: FileConflictMode = FileConflictMode.AddIndex):
         """
         使用ComfyUI API放大图片
         :param height_thresh: 查找图片时，高度小于此值的图像会被视为需要放大
@@ -28,6 +30,7 @@ class ImageUpscaler:
         :param downscale: 在使用模型放大后，再缩小为此倍数 - 可以增加一些锐度
         :param recursive: 查找图片时，是否要查找img_dir的子文件夹
         :param save_dir: 图像放大后，保存到此处
+        :param mode: 冲突处理模式
         """
         self.prompt_text = {
             "1": {
@@ -100,6 +103,7 @@ class ImageUpscaler:
         self.downscale = downscale
         self.recursive_search = recursive
         self.save_dir = save_dir
+        self.conflict_mode = mode
         self.supported_types = ('.png', '.jpg', '.jpeg', '.bmp', '.tiff', '.webp')
         self.client_id = str(uuid.uuid4())
         self._temp_image_data = None
@@ -238,12 +242,10 @@ class ImageUpscaler:
                     os.makedirs(self.save_dir)
                 original_filename = os.path.basename(image_path)
                 save_file_path = os.path.join(self.save_dir, original_filename)
-                res3 = utils.filename_deduplicate(2, save_file_path)
+                res3 = file_saver.save_bytes(save_file_path, self._temp_image_data, self.conflict_mode)
                 if res3[0] != ErrorCode.Success:
                     logger.error(res3[0].generic)
                     return res3[0], ""
-                with open(res3[1], 'wb') as f:
-                    f.write(self._temp_image_data)
                 logger.info(f"已放大图片: {original_filename} -> {res3[1]}")
                 return ErrorCode.Success, res3[1]
             except OSError as e:

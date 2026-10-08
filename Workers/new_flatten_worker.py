@@ -6,6 +6,7 @@ from PySide6.QtWidgets import QMessageBox
 from core import log_manager
 from core.error_codes import ErrorCode
 from modules.file_mgr import FlattenNew
+from modules.utils.file_saver import FileConflictMode
 
 logger = log_manager.get_logger(__name__)
 
@@ -13,7 +14,7 @@ class NewFlattenWorker(QThread):
     progress_updated = Signal(int)
     worker_finished = Signal(tuple)
 
-    def __init__(self, folder: str):
+    def __init__(self, folder: str, conflict_mode: FileConflictMode = FileConflictMode.AddIndex):
         """
         展平一个文件夹
 
@@ -21,9 +22,11 @@ class NewFlattenWorker(QThread):
 
         Args:
             folder: 要展平的文件夹
+            conflict_mode: 冲突处理模式
         """
         super().__init__()
         self.folder = folder
+        self.conflict_mode = conflict_mode
         self._stop = False
 
     def stop(self):
@@ -40,7 +43,7 @@ class NewFlattenWorker(QThread):
         try:
             logger.info(f"准备展平：{self.folder}")
             self.folder = os.path.normpath(self.folder)
-            for stat, progress in FlattenNew.flatten(self.folder):
+            for stat, progress in FlattenNew.flatten(self.folder, self.conflict_mode):
                 if self._stop:
                     logger.info("展平已被用户终止")
                     self.worker_finished.emit(("信息", "展平已被终止", QMessageBox.Icon.Information))

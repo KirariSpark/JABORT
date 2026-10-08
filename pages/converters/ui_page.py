@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'pagecCMgnU.ui'
+## Form generated from reading UI file 'pageMDpdJk.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.11.2
 ##
@@ -15,10 +15,10 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QFont, QFontDatabase, QGradient, QIcon,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
-from PySide6.QtWidgets import (QApplication, QComboBox, QGridLayout, QHBoxLayout,
-    QLabel, QLineEdit, QProgressBar, QPushButton,
-    QSizePolicy, QSlider, QSpacerItem, QTabWidget,
-    QVBoxLayout, QWidget)
+from PySide6.QtWidgets import (QApplication, QGridLayout, QHBoxLayout, QLabel,
+    QLineEdit, QProgressBar, QPushButton, QSizePolicy,
+    QSlider, QSpacerItem, QTabWidget, QVBoxLayout,
+    QWidget)
 
 class Ui_ConverterWidget(object):
     def setupUi(self, ConverterWidget):
@@ -68,12 +68,6 @@ class Ui_ConverterWidget(object):
 
         self.PNG2JPGOptions.addWidget(self.PNG2JPGDelOri, 0, 0, 1, 1)
 
-        self.PNG2JPGPreverveMeta = QPushButton(self.PNG2JPG)
-        self.PNG2JPGPreverveMeta.setObjectName(u"PNG2JPGPreverveMeta")
-        self.PNG2JPGPreverveMeta.setCheckable(True)
-
-        self.PNG2JPGOptions.addWidget(self.PNG2JPGPreverveMeta, 0, 2, 1, 1)
-
         self.PNG2JPGSkipAlpha = QPushButton(self.PNG2JPG)
         self.PNG2JPGSkipAlpha.setObjectName(u"PNG2JPGSkipAlpha")
         self.PNG2JPGSkipAlpha.setCheckable(True)
@@ -86,13 +80,11 @@ class Ui_ConverterWidget(object):
 
         self.PNG2JPGOptions.addWidget(self.PNG2JPGWalk, 1, 0, 1, 1)
 
-        self.PNG2JPGDedup = QComboBox(self.PNG2JPG)
-        self.PNG2JPGDedup.addItem("")
-        self.PNG2JPGDedup.addItem("")
-        self.PNG2JPGDedup.addItem("")
-        self.PNG2JPGDedup.setObjectName(u"PNG2JPGDedup")
+        self.PNG2JPGPreverveMeta = QPushButton(self.PNG2JPG)
+        self.PNG2JPGPreverveMeta.setObjectName(u"PNG2JPGPreverveMeta")
+        self.PNG2JPGPreverveMeta.setCheckable(True)
 
-        self.PNG2JPGOptions.addWidget(self.PNG2JPGDedup, 1, 1, 1, 2)
+        self.PNG2JPGOptions.addWidget(self.PNG2JPGPreverveMeta, 1, 1, 1, 1)
 
 
         self.verticalLayout.addLayout(self.PNG2JPGOptions)
@@ -225,7 +217,6 @@ class Ui_ConverterWidget(object):
         self.retranslateUi(ConverterWidget)
 
         self.ConvertorChildTab.setCurrentIndex(0)
-        self.PNG2JPGDedup.setCurrentIndex(2)
 
 
         QMetaObject.connectSlotsByName(ConverterWidget)
@@ -236,14 +227,9 @@ class Ui_ConverterWidget(object):
         self.PNG2JPGFindDir.setText(QCoreApplication.translate("ConverterWidget", u"\u6253\u5f00", None))
         self.PNG2JPGDirTxt.setPlaceholderText(QCoreApplication.translate("ConverterWidget", u"\u4ece\u6b64\u5904\u5f00\u59cb\u67e5\u627e\u56fe\u50cf", None))
         self.PNG2JPGDelOri.setText(QCoreApplication.translate("ConverterWidget", u"\u5220\u9664\u539f\u6587\u4ef6", None))
-        self.PNG2JPGPreverveMeta.setText(QCoreApplication.translate("ConverterWidget", u"\u4fdd\u7559\u5143\u6570\u636e", None))
         self.PNG2JPGSkipAlpha.setText(QCoreApplication.translate("ConverterWidget", u"\u8df3\u8fc7\u900f\u660e\u56fe", None))
         self.PNG2JPGWalk.setText(QCoreApplication.translate("ConverterWidget", u"\u9012\u5f52\u67e5\u627e", None))
-        self.PNG2JPGDedup.setItemText(0, QCoreApplication.translate("ConverterWidget", u"\u91cd\u590d\u7684\u6587\u4ef6\uff1a\u8986\u76d6", None))
-        self.PNG2JPGDedup.setItemText(1, QCoreApplication.translate("ConverterWidget", u"\u91cd\u590d\u7684\u6587\u4ef6\uff1a\u8df3\u8fc7", None))
-        self.PNG2JPGDedup.setItemText(2, QCoreApplication.translate("ConverterWidget", u"\u91cd\u590d\u7684\u6587\u4ef6\uff1a\u589e\u52a0\u5e8f\u53f7", None))
-
-        self.PNG2JPGDedup.setPlaceholderText(QCoreApplication.translate("ConverterWidget", u"\u91cd\u590d\u7684\u6587\u4ef6", None))
+        self.PNG2JPGPreverveMeta.setText(QCoreApplication.translate("ConverterWidget", u"\u4fdd\u7559\u5143\u6570\u636e", None))
         self.PNG2JPGQualityTxt.setText(QCoreApplication.translate("ConverterWidget", u"\u8d28\u91cf", None))
         self.PNG2JPGQualityNum.setText(QCoreApplication.translate("ConverterWidget", u"80", None))
         self.PNG2JPGProgress.setFormat(QCoreApplication.translate("ConverterWidget", u"%p %", None))

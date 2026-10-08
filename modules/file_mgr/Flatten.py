@@ -1,12 +1,12 @@
 import os
-import shutil
 from typing import Generator
 
 import send2trash
 
 from core import log_manager
 from core.error_codes import ErrorCode
-from modules.utils import utils
+from modules.utils import file_saver
+from modules.utils.file_saver import FileConflictMode
 
 logger = log_manager.get_logger(__name__)
 
@@ -39,12 +39,13 @@ def _has_one_file(folder: str) -> tuple[ErrorCode, bool]:
         return ErrorCode.Unknown, False
 
 
-def _lift_file(folder_path: str) -> tuple[ErrorCode, str]:
+def _lift_file(folder_path: str, mode: FileConflictMode = FileConflictMode.AddIndex) -> tuple[ErrorCode, str]:
     """
     展平单文件文件夹，将文件移动到父目录
 
     Args:
         folder_path: 待处理的文件夹路径
+        mode: 冲突处理模式
 
     Returns:
         tuple[ErrorCode, str]: 错误码和消息/路径
@@ -70,10 +71,15 @@ def _lift_file(folder_path: str) -> tuple[ErrorCode, str]:
         candidate_path = os.path.join(
             os.path.dirname(folder_path), os.path.basename(folder_path) + os.path.splitext(file_to_move)[1]
         )
-        new_file_path = utils.get_unique_filename(candidate_path)[1]
 
-        # 移动文件
-        shutil.move(source_file_path, new_file_path)
+        # 移动文件（按冲突模式处理重名）
+        err, new_file_path = file_saver.move_with(source_file_path, candidate_path, mode)
+        if err == ErrorCode.FileSkipped:
+            logger.info(f"已跳过重复文件: {source_file_path}")
+            return ErrorCode.FileSkipped, ""
+        if err != ErrorCode.Success:
+            logger.error(err.generic)
+            return err, folder_path
         logger.info(f"已移动文件 '{file_to_move}' 到 '{new_file_path}'")
 
         # 删除原文件夹
@@ -97,18 +103,19 @@ def _lift_file(folder_path: str) -> tuple[ErrorCode, str]:
         return ErrorCode.FlattenFailed, str(e)
 
 
-def process_folder(folder_path: str) -> Generator[tuple[ErrorCode, str], None, None]:
+def process_folder(folder_path: str, mode: FileConflictMode = FileConflictMode.AddIndex) -> Generator[tuple[ErrorCode, str], None, None]:
     """
     递归处理文件夹，执行展平操作
 
     Args:
         folder_path: 文件夹路径
+        mode: 冲突处理模式
 
     Yields:
         tuple[ErrorCode, str]: 错误码和当前处理的路径/消息
     """
     # 尝试作为单文件文件夹展平
-    code, msg = _lift_file(folder_path)
+    code, msg = _lift_file(folder_path, mode)
 
     if code == ErrorCode.Success:
         # 成功展平，不再需要处理子项
@@ -130,22 +137,23 @@ def process_folder(folder_path: str) -> Generator[tuple[ErrorCode, str], None, N
     for item in items:
         item_path = os.path.join(folder_path, item)
         if os.path.isdir(item_path):
-            yield from process_folder(item_path)
+            yield from process_folder(item_path, mode)
 
     # 子文件夹处理完毕后，当前文件夹可能变为单文件文件夹，再次尝试
-    code, msg = _lift_file(folder_path)
+    code, msg = _lift_file(folder_path, mode)
     if code == ErrorCode.Success:
         yield code, msg
     elif code != ErrorCode.FileSkipped:
         yield code, msg
 
 
-def main(folder_path: str) -> Generator[tuple[ErrorCode, str], None, None]:
+def main(folder_path: str, mode: FileConflictMode = FileConflictMode.AddIndex) -> Generator[tuple[ErrorCode, str], None, None]:
     """
     扫描指定路径下的所有顶层目录并递归展平
 
     Args:
         folder_path: 根文件夹路径
+        mode: 冲突处理模式
 
     Yields:
         tuple[ErrorCode, str]: 错误码和处理结果
@@ -170,4 +178,4 @@ def main(folder_path: str) -> Generator[tuple[ErrorCode, str], None, None]:
         return
 
     for dir_path in top_level_dirs:
-        yield from process_folder(dir_path)
+        yield from process_folder(dir_path, mode)

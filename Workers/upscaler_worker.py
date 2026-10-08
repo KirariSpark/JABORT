@@ -7,6 +7,7 @@ from core import log_manager
 from core.error_codes import ErrorCode
 from modules.media_proc import ComfyUpscaler
 from modules.utils import utils
+from modules.utils.file_saver import FileConflictMode
 
 logger = log_manager.get_logger(__name__)
 
@@ -19,7 +20,8 @@ class UpscalerWorker(QThread):
 
     def __init__(self, model_name: str, img_dir: str, recursive_search: bool, width_threshold: int,
                  height_threshold: int, jpg_size_threshold: int, post_downscale_scale: float, url: str,
-                 image_list: list, save_dir: str, mode: str = "upscale"):
+                 image_list: list, save_dir: str, mode: str = "upscale",
+                 conflict_mode: FileConflictMode = FileConflictMode.AddIndex):
         super().__init__()
         self.model_name = model_name
         self.img_dir = img_dir
@@ -31,6 +33,7 @@ class UpscalerWorker(QThread):
         self.api_url = url
         self.image_list = image_list
         self.mode = mode
+        self.conflict_mode = conflict_mode
         self.save_dir = save_dir if save_dir else os.path.join(self.img_dir, "Upscaled")
         self.upscaler = None
         self._stop = False
@@ -68,7 +71,8 @@ class UpscalerWorker(QThread):
             model_name=self.model_name,
             recursive=self.recursive_search,
             downscale=self.post_downscale_scale,
-            save_dir=self.save_dir
+            save_dir=self.save_dir,
+            mode=self.conflict_mode
         )
 
         # 查找图像
