@@ -3,7 +3,7 @@ import os
 from PySide6.QtGui import QAction
 from PySide6.QtWidgets import QWidget
 
-from Workers import TrimmerWorker, UpscalerWorker
+from workers import TrimmerWorker, UpscalerWorker
 from modules.utils import ui_utils
 from pages.media_proc.ui_page import Ui_MediaProcTab
 from core import app_config

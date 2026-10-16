@@ -1,6 +1,6 @@
 from PySide6.QtWidgets import QWidget, QMessageBox
 
-from Workers import ImageSeqWorker
+from workers import ImageSeqWorker
 from modules.tests.QtIconExport import export_all_icons
 from modules.utils import ui_utils
 from pages.tests.ui_page import Ui_TestTab

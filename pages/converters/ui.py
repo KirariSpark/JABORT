@@ -1,6 +1,6 @@
 from PySide6.QtWidgets import QWidget
 
-from Workers import ImgSeq2PDFWorker, PNG2JPGWorker
+from workers import ImgSeq2PDFWorker, PNG2JPGWorker
 from pages.converters.ui_page import Ui_ConverterWidget
 from modules.utils import ui_utils
 from core import app_config
