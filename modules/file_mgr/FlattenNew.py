@@ -6,10 +6,8 @@ from send2trash import send2trash
 
 from modules.utils import file_saver
 from modules.utils.file_saver import FileConflictMode
-from core import log_manager
 from core.error_codes import ErrorCode
-
-logger = log_manager.get_logger(__name__)
+from core.logger import logger
 
 
 # 文件系统结点类

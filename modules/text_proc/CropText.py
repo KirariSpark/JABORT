@@ -2,12 +2,10 @@ import os
 
 from charset_normalizer import from_path
 
-from core import log_manager
 from core.error_codes import ErrorCode
+from core.logger import logger
 from modules.utils import file_saver
 from modules.utils.file_saver import FileConflictMode
-
-logger = log_manager.get_logger(__name__)
 
 
 def crop_text_file(input_path: str, output_path: str = None, percentage: int = 50,

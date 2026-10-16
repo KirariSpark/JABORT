@@ -4,12 +4,10 @@ from typing import Generator
 
 from PIL import Image, UnidentifiedImageError
 
-from core import log_manager
 from core.error_codes import ErrorCode
+from core.logger import logger
 from modules.utils import file_saver, utils
 from modules.utils.file_saver import FileConflictMode
-
-logger = log_manager.get_logger(__name__)
 
 
 def convert_single(input_path: str, quality: int, preserve_metadata: bool, mode: FileConflictMode,

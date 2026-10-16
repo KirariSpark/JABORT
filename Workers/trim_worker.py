@@ -3,13 +3,12 @@ import os
 from PySide6.QtCore import QThread, Signal, QTime
 from PySide6.QtWidgets import QMessageBox
 
-from core import log_manager
 from core.error_codes import ErrorCode
+from core.logger import logger
 from modules.utils import file_saver
 from modules.utils.file_saver import FileConflictMode
 from modules.media_proc import VideoTrim
 
-logger = log_manager.get_logger(__name__)
 
 class TrimmerWorker(QThread):
     worker_finished = Signal(tuple)

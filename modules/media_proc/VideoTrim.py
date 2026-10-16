@@ -3,10 +3,8 @@ import os
 from PySide6.QtCore import QTime
 from ffmpy import FFmpeg, FFRuntimeError, FFExecutableNotFoundError
 
-from core import log_manager
 from core.error_codes import ErrorCode
-
-logger = log_manager.get_logger(__name__)
+from core.logger import logger
 
 
 def trim_video(input_path: str, input_time: QTime, output_path: str = "", preserve: int = 0) -> tuple[ErrorCode, str]:

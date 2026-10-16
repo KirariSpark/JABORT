@@ -6,13 +6,11 @@ from typing import List, Dict, TypedDict, Generator
 import fitz
 import send2trash
 
-from core import log_manager
 from core.error_codes import ErrorCode
+from core.logger import logger
 from modules.conv import PNG2JPG
 from modules.utils import file_saver
 from modules.utils.file_saver import FileConflictMode
-
-logger = log_manager.get_logger(__name__)
 
 
 class SequenceInfo(TypedDict):

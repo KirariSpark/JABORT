@@ -3,12 +3,10 @@ import os
 from PySide6.QtCore import QThread, Signal
 from PySide6.QtWidgets import QMessageBox
 
-from core import log_manager
 from core.error_codes import ErrorCode
+from core.logger import logger
 from modules.file_mgr import Flatten
 from modules.utils.file_saver import FileConflictMode
-
-logger = log_manager.get_logger(__name__)
 
 
 class FlattenWorker(QThread):

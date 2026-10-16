@@ -3,10 +3,8 @@ import os.path
 import numpy as np
 from llama_cpp import Llama
 
-from core import log_manager
 from core.error_codes import ErrorCode
-
-logger = log_manager.get_logger(__name__)
+from core.logger import logger
 
 embed_model = None
 prev_model = ""

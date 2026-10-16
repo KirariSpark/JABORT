@@ -4,11 +4,9 @@ import re
 import send2trash
 from PySide6.QtWidgets import QComboBox, QListWidget, QMessageBox, QWidget, QFileDialog, QLineEdit
 
-from core import log_manager
 from core.error_codes import ErrorCode
+from core.logger import logger
 from modules.utils import utils
-
-logger = log_manager.get_logger(__name__)
 
 
 def show_message_box(parent: QWidget = None, title: str = "提示", content: str = "",

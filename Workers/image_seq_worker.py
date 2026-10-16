@@ -2,10 +2,8 @@ from PySide6.QtCore import QThread, Signal
 from PySide6.QtWidgets import QMessageBox
 
 from modules.tests import ImgSeqGen
-from core import log_manager
 from core.error_codes import ErrorCode
-
-logger = log_manager.get_logger(__name__)
+from core.logger import logger
 
 
 class ImageSeqWorker(QThread):

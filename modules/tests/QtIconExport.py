@@ -6,9 +6,7 @@ from PySide6.QtCore import QSize, Qt
 from PySide6.QtGui import QPainter, QPixmap
 from PySide6.QtWidgets import QStyle, QWidget
 
-from core import log_manager
-
-logger = log_manager.get_logger(__name__)
+from core.logger import logger
 
 
 def export_all_icons(output_dir: str = "icons", size: QSize = QSize(64, 64)) -> tuple[int, int]:

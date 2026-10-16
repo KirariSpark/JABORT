@@ -3,10 +3,8 @@ from typing import Generator
 
 from PIL import Image, ImageDraw
 
-from core import log_manager
 from core.error_codes import ErrorCode
-
-logger = log_manager.get_logger(__name__)
+from core.logger import logger
 
 
 def generate_image_sequence(target: str, amount: int,

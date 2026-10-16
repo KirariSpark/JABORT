@@ -3,13 +3,11 @@ import os
 from PySide6.QtCore import QThread, Signal
 from PySide6.QtWidgets import QMessageBox
 
-from core import log_manager
 from core.error_codes import ErrorCode
+from core.logger import logger
 from modules.media_proc import ComfyUpscaler
 from modules.utils import utils
 from modules.utils.file_saver import FileConflictMode
-
-logger = log_manager.get_logger(__name__)
 
 
 class UpscalerWorker(QThread):

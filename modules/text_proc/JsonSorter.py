@@ -3,9 +3,7 @@ import os.path
 
 import charset_normalizer
 
-from core import log_manager
-
-logger = log_manager.get_logger(__name__)
+from core.logger import logger
 
 
 def sort_dict_recursive(d):

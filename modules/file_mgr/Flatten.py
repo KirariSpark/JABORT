@@ -3,12 +3,10 @@ from typing import Generator
 
 import send2trash
 
-from core import log_manager
 from core.error_codes import ErrorCode
+from core.logger import logger
 from modules.utils import file_saver
 from modules.utils.file_saver import FileConflictMode
-
-logger = log_manager.get_logger(__name__)
 
 
 def _has_one_file(folder: str) -> tuple[ErrorCode, bool]:
