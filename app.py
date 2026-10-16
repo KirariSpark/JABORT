@@ -6,6 +6,7 @@ from PySide6.QtWidgets import QApplication, QWidget, QMessageBox
 from core import app_config
 from modules.utils import ui_utils
 from ui_app import Ui_Form
+from workers import worker_manager
 
 with open(r"styles\Blue Archive.qss", "r", encoding="utf-8") as f:
     stylesheet = f.read()
@@ -49,6 +50,7 @@ class MyWindow(QWidget, Ui_Form):
 
 if __name__ == '__main__':
     app = QApplication([])
+    app.aboutToQuit.connect(worker_manager.shutdown)
     window = MyWindow()
     window.show()
     app.exec()
