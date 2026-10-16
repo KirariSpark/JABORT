@@ -1,8 +1,9 @@
 import os
 
-from PySide6.QtCore import QThread, Signal, QTime
+from PySide6.QtCore import Signal, QTime
 from PySide6.QtWidgets import QMessageBox
 
+from .worker_base import WorkerBase
 from core.error_codes import ErrorCode
 from core.logger import logger
 from modules.utils import file_saver
@@ -10,8 +11,7 @@ from modules.utils.file_saver import FileConflictMode
 from modules.media_proc import VideoTrim
 
 
-class TrimmerWorker(QThread):
-    worker_finished = Signal(tuple)
+class TrimmerWorker(WorkerBase):
     output_path_built = Signal(str)
 
     def __init__(self, input_path: str, input_time: QTime, output_path: str, preserve: int,
@@ -23,17 +23,17 @@ class TrimmerWorker(QThread):
         self.preserve = preserve
         self.conflict_mode = conflict_mode
 
-    def run(self):
+    def task(self):
         logger.info(f"开始剪切：{self.input_path}")
         # 检查输入
         if not self.input_path or not os.path.exists(self.input_path):
             logger.error(ErrorCode.InvalidPath.format(self.input_path))
-            self.worker_finished.emit(("错误", ErrorCode.InvalidPath.format(self.input_path), QMessageBox.Icon.Critical))
+            self.finish("错误", ErrorCode.InvalidPath.format(self.input_path), QMessageBox.Icon.Critical)
             return
         # 检查重名
         elif self.input_path == self.output_path:
             logger.error(ErrorCode.DuplicateIOName.generic)
-            self.worker_finished.emit(("错误", ErrorCode.DuplicateIOName.generic, QMessageBox.Icon.Critical))
+            self.finish("错误", ErrorCode.DuplicateIOName.generic, QMessageBox.Icon.Critical)
             return
         # 构建输出
         elif not self.output_path:
@@ -45,11 +45,11 @@ class TrimmerWorker(QThread):
         # 检查构建结果
         if build_res[0] == ErrorCode.FileSkipped:
             logger.info(f"已跳过输出，因为输出文件路径已存在")
-            self.worker_finished.emit(("警告", "已跳过输出，因为输出文件路径已存在", QMessageBox.Icon.Warning))
+            self.finish("警告", "已跳过输出，因为输出文件路径已存在", QMessageBox.Icon.Warning)
             return
         elif build_res[0] != ErrorCode.Success:
             logger.error(build_res[0].generic)
-            self.worker_finished.emit(("错误", build_res[0].generic, QMessageBox.Icon.Critical))
+            self.finish("错误", build_res[0].generic, QMessageBox.Icon.Critical)
             return
         else:
             logger.debug(f"构建输出文件名：{build_res[1]}")
@@ -61,9 +61,9 @@ class TrimmerWorker(QThread):
         err, output = VideoTrim.trim_video(self.input_path, self.input_time, self.output_path, self.preserve)
         if err != ErrorCode.Success:
             logger.error(err.generic)
-            self.worker_finished.emit(("错误", err.generic, QMessageBox.Icon.Critical))
+            self.finish("错误", err.generic, QMessageBox.Icon.Critical)
             return
         else:
             logger.info(f"剪切后的视频已保存到 {output}")
-            self.worker_finished.emit(("信息", f"剪切后的视频已保存到 {output}", QMessageBox.Icon.Information))
+            self.finish("信息", f"剪切后的视频已保存到 {output}", QMessageBox.Icon.Information)
             return
