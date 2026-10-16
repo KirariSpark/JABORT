@@ -1,9 +1,10 @@
 import os
 
 from PySide6.QtGui import QAction
-from PySide6.QtWidgets import QWidget
+from PySide6.QtWidgets import QWidget, QMessageBox
 
-from Workers import TrimmerWorker, UpscalerWorker
+from workers import TrimmerWorker, UpscalerWorker, worker_manager
+from core.error_codes import ErrorCode
 from modules.utils import ui_utils
 from pages.media_proc.ui_page import Ui_MediaProcTab
 from core import app_config
@@ -13,10 +14,6 @@ class MediaProcWidget(QWidget, Ui_MediaProcTab):
     def __init__(self, parent = None):
         super().__init__(parent)
         self.setupUi(self)
-
-        # 工作线程
-        self.upscaler_worker = None
-        self.trimmer_worker = None
 
         # Actions
         self.del_selected = QAction("移除选中项并删除文件")
@@ -37,7 +34,7 @@ class MediaProcWidget(QWidget, Ui_MediaProcTab):
         self.UpsChooseImagePath.clicked.connect(lambda: ui_utils.select_folder(self, self.UpsImagePath))
         self.UpsSavePathOpen.clicked.connect(lambda: ui_utils.select_folder(self, self.UpsSavePath))
         self.UpsRun.clicked.connect(lambda: self.ups_run(mode="upscale"))
-        self.UpsStop.clicked.connect(lambda: self.upscaler_worker.stop())
+        self.UpsStop.clicked.connect(lambda: worker_manager.request_stop())
         self.UpsRefreshModel.clicked.connect(lambda: ui_utils.refresh_combobox(
             target_widget=self.UpsModelDropdown, path=self.UpsComfyUrl.text(),
             sub_url="/object_info/UpscaleModelLoader", scan_type="url", include_path=False,
@@ -77,26 +74,38 @@ class MediaProcWidget(QWidget, Ui_MediaProcTab):
         self.UpsList.addAction(self.remove_all)
 
     def vid_trim_run(self):
+        if worker_manager.is_busy():
+            ui_utils.show_message_box(self, "提示", ErrorCode.WorkerBusy.generic, QMessageBox.Icon.Warning)
+            return
         self.VidTrimRun.setEnabled(False)
         self.VidTrimRun.setText("正在运行")
-        self.trimmer_worker = TrimmerWorker(
+        worker = TrimmerWorker(
             input_path=self.VidTrimInputPath.text(),
             input_time=self.VidTrimTime.time(),
             output_path=self.VidTrimOutputPath.text(),
             preserve=self.VidTrimMode.currentIndex(),
             conflict_mode=app_config.get_conflict_mode()
         )
-        self.trimmer_worker.worker_finished.connect(lambda: self.VidTrimRun.setEnabled(True))
-        self.trimmer_worker.worker_finished.connect(lambda: self.VidTrimRun.setText("运行"))
-        self.trimmer_worker.worker_finished.connect(lambda t: ui_utils.show_message_box(self, t[0], t[1], t[2]))
-        self.trimmer_worker.start()
+        # 连接到主线程 QObject 的绑定方法，保证回调在主线程执行（详见 WorkerManager.submit 文档）
+        worker.worker_finished.connect(self.on_vid_trim_finished)
+        if not worker_manager.submit(worker):
+            self.VidTrimRun.setEnabled(True)
+            self.VidTrimRun.setText("运行")
+
+    def on_vid_trim_finished(self, result: tuple):
+        self.VidTrimRun.setEnabled(True)
+        self.VidTrimRun.setText("运行")
+        ui_utils.show_message_box(self, result[0], result[1], result[2])
 
     def ups_run(self, mode: str = "upscale"):
+        if worker_manager.is_busy():
+            ui_utils.show_message_box(self, "提示", ErrorCode.WorkerBusy.generic, QMessageBox.Icon.Warning)
+            return
         self.UpsRun.setEnabled(False)
         self.UpsListImg.setEnabled(False)
         self.UpsList.setEnabled(False)
         self.UpsStop.setEnabled(True)
-        self.upscaler_worker = UpscalerWorker(
+        worker = UpscalerWorker(
             model_name=self.UpsModelDropdown.currentText(),
             img_dir=self.UpsImagePath.text(),
             recursive_search=self.UpsRecursive.isChecked(),
@@ -110,13 +119,27 @@ class MediaProcWidget(QWidget, Ui_MediaProcTab):
             mode=mode,
             conflict_mode=app_config.get_conflict_mode(),
         )
-        self.upscaler_worker.worker_finished.connect(lambda: self.UpsRun.setEnabled(True))
-        self.upscaler_worker.worker_finished.connect(lambda: self.UpsListImg.setEnabled(True))
-        self.upscaler_worker.worker_finished.connect(lambda: self.UpsList.setEnabled(True))
-        self.upscaler_worker.worker_finished.connect(lambda: self.UpsStop.setEnabled(False))
-        self.upscaler_worker.worker_finished.connect(lambda t: ui_utils.show_message_box(self, t[0], t[1], t[2]))
-        self.upscaler_worker.progress_updated.connect(lambda v: self.UpsProgress.setValue(v))
-        self.upscaler_worker.image_list_got.connect(lambda lst: ui_utils.set_widget_items(self.UpsList, lst))
-        self.upscaler_worker.image_list_got.connect(lambda lst: setattr(self, 'ups_image_list', lst))
-        self.upscaler_worker.output_path_updated.connect(lambda t: self.UpsSavePath.setText(os.path.normpath(t)))
-        self.upscaler_worker.start()
+        # 连接到主线程 QObject 的绑定方法，保证回调在主线程执行（详见 WorkerManager.submit 文档）
+        worker.progress_updated.connect(self.UpsProgress.setValue)
+        worker.image_list_got.connect(self.on_ups_image_list_got)
+        worker.output_path_updated.connect(self.on_ups_output_path_updated)
+        worker.worker_finished.connect(self.on_ups_finished)
+        if not worker_manager.submit(worker):
+            self.UpsRun.setEnabled(True)
+            self.UpsListImg.setEnabled(True)
+            self.UpsList.setEnabled(True)
+            self.UpsStop.setEnabled(False)
+
+    def on_ups_image_list_got(self, image_list: list):
+        ui_utils.set_widget_items(self.UpsList, image_list)
+        self.ups_image_list = image_list
+
+    def on_ups_output_path_updated(self, path: str):
+        self.UpsSavePath.setText(os.path.normpath(path))
+
+    def on_ups_finished(self, result: tuple):
+        self.UpsRun.setEnabled(True)
+        self.UpsListImg.setEnabled(True)
+        self.UpsList.setEnabled(True)
+        self.UpsStop.setEnabled(False)
+        ui_utils.show_message_box(self, result[0], result[1], result[2])

@@ -67,3 +67,4 @@ class ErrorCode(ErrorCodeBase):
     NoFFmpeg = (23, "未找到FFmpeg可执行文件，尝试安装FFmpeg或将其添加到PATH")
     FFRuntimeError = (24, "FFmpeg程序返回了一个非零的值：{item}", "FFmpeg执行出错，检查你的参数设置")
     DuplicateIOName = (25, "输入和输出文件名重复")
+    WorkerBusy = (26, "后台线程正忙：{item}", "后台线程正忙，请等待当前任务完成")

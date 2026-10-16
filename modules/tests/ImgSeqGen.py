@@ -1,4 +1,5 @@
 import os
+import time
 from typing import Generator
 
 from PIL import Image, ImageDraw
