@@ -10,6 +10,7 @@ requires-python = ">=3.13"
 dependencies = [
     "anytree>=2.13.0",
     "ffmpy>=1.0.0",
+    "ksessentials",
     "llama-cpp-python>=0.3.35",
     "numpy>=2.5.3",
     "pathlib>=1.0.1",
@@ -27,6 +28,9 @@ jabort = "jabort:main"
 [[tool.uv.index]]
 url = "https://mirrors.tuna.tsinghua.edu.cn/pypi/web/simple"
 default = true
+
+[tool.uv.sources]
+ksessentials = { path = "ksessentials-0.0.1-py3-none-any.whl" }
 
 [[tool.uv.index]]
 url = "https://abetlen.github.io/llama-cpp-python/whl/cpu"

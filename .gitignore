@@ -1,11 +1,12 @@
 .idea/
+/__pycache__
+/logs
+/config
 *.flac
 *.aac
 *.mp3
 *.exe
 *.dll
-/__pycache__
 *.pyc
 *.gguf
-/logs
-/config
+start.bat
