@@ -30,7 +30,6 @@ def generate_image_sequence(target: str, amount: int,
 
     for i in range(amount):
         try:
-            time.sleep(0.1)
             img = Image.new('RGB', (width, height), color='white')
             draw = ImageDraw.Draw(img)
             text_content = str(i)

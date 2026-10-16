@@ -1,25 +1,25 @@
 import os.path
 
 import send2trash
-from PySide6.QtCore import QThread, Signal
+from PySide6.QtCore import Signal
 from PySide6.QtWidgets import QMessageBox
 
+from .worker_base import WorkerBase
 from modules.conv import PNG2JPG
 from modules.utils.file_saver import FileConflictMode
 from core.error_codes import ErrorCode
 from core.logger import logger
 
 
-class PNG2JPGWorker(QThread):
+class PNG2JPGWorker(WorkerBase):
     progress_updated = Signal(int)
-    worker_finished = Signal(tuple)
 
     def __init__(self, image_dir: str, recursive: bool, quality: int, skip_transparency: bool,
                  preserve_metadata: bool, delete_origin: bool, conflict_mode: FileConflictMode = FileConflictMode.AddIndex):
         """
         PNG转JPG初始化
 
-        finished信号用于弹出提示框，第一项为标题，第二项为内容，第三项为图标
+        worker_finished 信号用于弹出提示框，第一项为标题，第二项为内容，第三项为图标
 
         :param image_dir: 要处理的目录
         :param recursive: 递归查找
@@ -39,7 +39,6 @@ class PNG2JPGWorker(QThread):
         self.metadata = preserve_metadata
         self.delete_origin = delete_origin
         self.conflict_mode = conflict_mode
-        self._stop = False
 
     def get_images(self):
         self.get_result = PNG2JPG.get_image_list(
@@ -48,22 +47,19 @@ class PNG2JPGWorker(QThread):
             pass_trans=self.skip_trans
         )
 
-    def stop(self):
-        self._stop = True
-
-    def run(self):
+    def task(self):
         logger.info(f"在 {self.image_dir} 下查找图像")
         self.get_images()
         # 如果出现错误
         if self.get_result[0] == ErrorCode.Success:
             self.image_list = self.get_result[1]
         else:
-            self.worker_finished.emit(("错误",self.get_result[0].generic,QMessageBox.Icon.Critical))
+            self.finish("错误", self.get_result[0].generic, QMessageBox.Icon.Critical)
             return
         # 检查是否找到图像
         if not self.image_list:
             logger.error(ErrorCode.NoImageFound.generic)
-            self.worker_finished.emit(("错误",ErrorCode.NoImageFound.generic,QMessageBox.Icon.Critical))
+            self.finish("错误", ErrorCode.NoImageFound.generic, QMessageBox.Icon.Critical)
             return
         # 转换并记录状态
         logger.info("正在转换")
@@ -78,12 +74,12 @@ class PNG2JPGWorker(QThread):
             # 手动终止
             if self._stop:
                 logger.error(ErrorCode.UserInterrupt.format("转换"))
-                self.worker_finished.emit(("信息",ErrorCode.UserInterrupt.format("转换"),QMessageBox.Icon.Information))
+                self.finish("信息", ErrorCode.UserInterrupt.format("转换"), QMessageBox.Icon.Information)
                 return
             # 状态异常
             elif item[0] != ErrorCode.Success and item[0] != ErrorCode.FileSkipped:
                 logger.error(item[0].generic)
-                self.worker_finished.emit(("错误", item[0].generic, QMessageBox.Icon.Critical))
+                self.finish("错误", item[0].generic, QMessageBox.Icon.Critical)
                 return
             # 状态正常
             else:
@@ -94,4 +90,4 @@ class PNG2JPGWorker(QThread):
             send2trash.send2trash(self.image_list)
         # 完成
         logger.info("转换已完成")
-        self.worker_finished.emit(("信息","转换已完成",QMessageBox.Icon.Information))
+        self.finish("信息", "转换已完成", QMessageBox.Icon.Information)
