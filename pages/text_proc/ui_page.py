@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'pageWqaLFg.ui'
+## Form generated from reading UI file 'pagebyIAbR.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.11.2
 ##
@@ -16,14 +16,15 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
 from PySide6.QtWidgets import (QAbstractSpinBox, QApplication, QComboBox, QHBoxLayout,
-    QLineEdit, QPushButton, QSizePolicy, QSpacerItem,
-    QSpinBox, QTabWidget, QVBoxLayout, QWidget)
+    QLineEdit, QPlainTextEdit, QPushButton, QSizePolicy,
+    QSpacerItem, QSpinBox, QTabWidget, QVBoxLayout,
+    QWidget)
 
 class Ui_TextProcWidget(object):
     def setupUi(self, TextProcWidget):
         if not TextProcWidget.objectName():
             TextProcWidget.setObjectName(u"TextProcWidget")
-        TextProcWidget.resize(406, 394)
+        TextProcWidget.resize(626, 603)
         self.horizontalLayout = QHBoxLayout(TextProcWidget)
         self.horizontalLayout.setObjectName(u"horizontalLayout")
         self.TextProcChildTab = QTabWidget(TextProcWidget)
@@ -182,6 +183,47 @@ class Ui_TextProcWidget(object):
         self.verticalLayout_15.addItem(self.JsonSorterSpacer)
 
         self.TextProcChildTab.addTab(self.JsonSorter, "")
+        self.Moss = QWidget()
+        self.Moss.setObjectName(u"Moss")
+        self.verticalLayout = QVBoxLayout(self.Moss)
+        self.verticalLayout.setObjectName(u"verticalLayout")
+        self.MossTextInput = QPlainTextEdit(self.Moss)
+        self.MossTextInput.setObjectName(u"MossTextInput")
+
+        self.verticalLayout.addWidget(self.MossTextInput)
+
+        self.MossControls = QHBoxLayout()
+        self.MossControls.setObjectName(u"MossControls")
+        self.MossSaveCheck = QPushButton(self.Moss)
+        self.MossSaveCheck.setObjectName(u"MossSaveCheck")
+        self.MossSaveCheck.setCheckable(True)
+
+        self.MossControls.addWidget(self.MossSaveCheck)
+
+        self.MossSavePath = QLineEdit(self.Moss)
+        self.MossSavePath.setObjectName(u"MossSavePath")
+
+        self.MossControls.addWidget(self.MossSavePath)
+
+        self.MossSavePathOpen = QPushButton(self.Moss)
+        self.MossSavePathOpen.setObjectName(u"MossSavePathOpen")
+
+        self.MossControls.addWidget(self.MossSavePathOpen)
+
+        self.MossDoParse = QPushButton(self.Moss)
+        self.MossDoParse.setObjectName(u"MossDoParse")
+
+        self.MossControls.addWidget(self.MossDoParse)
+
+
+        self.verticalLayout.addLayout(self.MossControls)
+
+        self.MossTextOutput = QPlainTextEdit(self.Moss)
+        self.MossTextOutput.setObjectName(u"MossTextOutput")
+
+        self.verticalLayout.addWidget(self.MossTextOutput)
+
+        self.TextProcChildTab.addTab(self.Moss, "")
 
         self.horizontalLayout.addWidget(self.TextProcChildTab)
 
@@ -225,6 +267,15 @@ class Ui_TextProcWidget(object):
         self.TextProcChildTab.setTabText(self.TextProcChildTab.indexOf(self.JsonSorter), QCoreApplication.translate("TextProcWidget", u"JSON \u6392\u5e8f", None))
 #if QT_CONFIG(tooltip)
         self.TextProcChildTab.setTabToolTip(self.TextProcChildTab.indexOf(self.JsonSorter), QCoreApplication.translate("TextProcWidget", u"\u5c06JSON\u7684\u952e\u503c\u5bf9\u6309\u952e\u7684\u987a\u5e8f\u6392\u5e8f", None))
+#endif // QT_CONFIG(tooltip)
+        self.MossTextInput.setPlaceholderText(QCoreApplication.translate("TextProcWidget", u"MOSS \u539f\u59cb\u6587\u672c", None))
+        self.MossSaveCheck.setText(QCoreApplication.translate("TextProcWidget", u"\u540c\u65f6\u4fdd\u5b58\u5230\uff1a", None))
+        self.MossSavePathOpen.setText(QCoreApplication.translate("TextProcWidget", u"\u6253\u5f00", None))
+        self.MossDoParse.setText(QCoreApplication.translate("TextProcWidget", u"\u8f6c\u6362", None))
+        self.MossTextOutput.setPlaceholderText(QCoreApplication.translate("TextProcWidget", u"\u8f6c\u6362\u540e\u7684\u6587\u672c", None))
+        self.TextProcChildTab.setTabText(self.TextProcChildTab.indexOf(self.Moss), QCoreApplication.translate("TextProcWidget", u"MOSS", None))
+#if QT_CONFIG(tooltip)
+        self.TextProcChildTab.setTabToolTip(self.TextProcChildTab.indexOf(self.Moss), QCoreApplication.translate("TextProcWidget", u"\u5c06 MOSS Transcribe Diarize \u8f93\u51fa\u7684\u7ed3\u6784\u5316\u6587\u672c\u8f6c\u6362\u4e3a SRT", None))
 #endif // QT_CONFIG(tooltip)
     # retranslateUi
 

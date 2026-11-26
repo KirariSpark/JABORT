@@ -68,3 +68,4 @@ class ErrorCode(ErrorCodeBase):
     FFRuntimeError = (24, "FFmpeg程序返回了一个非零的值：{item}", "FFmpeg执行出错，检查你的参数设置")
     DuplicateIOName = (25, "输入和输出文件名重复")
     WorkerBusy = (26, "后台线程正忙：{item}", "后台线程正忙，请等待当前任务完成")
+    InvalidFormat = (27, "输入格式无效：{item}", "输入格式无效")

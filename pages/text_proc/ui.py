@@ -2,10 +2,11 @@ import os
 
 from PySide6.QtWidgets import QWidget, QMessageBox
 
-from modules.text_proc import JsonSorter, CalSimilarity, CropText
+from modules.text_proc import JsonSorter, CalSimilarity, CropText, Moss
 from modules.utils import ui_utils
 from pages.text_proc.ui_page import Ui_TextProcWidget
 from core import app_config
+from core.error_codes import ErrorCode
 
 
 class TextProcWidget(QWidget, Ui_TextProcWidget):
@@ -26,6 +27,14 @@ class TextProcWidget(QWidget, Ui_TextProcWidget):
             self, self.JsonSorterInPath, "*.json"
         ))
         self.JsonSorterRun.clicked.connect(self.json_sorter_run)
+
+        # MOSS 标签页
+        self.MossDoParse.clicked.connect(self.moss_do_parse)
+        self.MossSavePathOpen.clicked.connect(lambda: ui_utils.select_savefile(
+            self, self.MossSavePath, "SRT 字幕 (*.srt)", self.MossSavePath.text()
+        ))
+        self.MossSaveCheck.toggled.connect(self.set_moss_save_enabled)
+        self.set_moss_save_enabled(self.MossSaveCheck.isChecked())
 
     def crop_text_run(self):
         res = CropText.crop_text_file(
@@ -59,3 +68,27 @@ class TextProcWidget(QWidget, Ui_TextProcWidget):
         else:
             ui_utils.show_message_box(self, "信息", "排序已完成，结果已保存到原文件",
                                       QMessageBox.Icon.Information)
+
+    def set_moss_save_enabled(self, enabled: bool):
+        self.MossSavePath.setEnabled(enabled)
+        self.MossSavePathOpen.setEnabled(enabled)
+
+    def moss_do_parse(self):
+        output_path = self.MossSavePath.text().strip() if self.MossSaveCheck.isChecked() else None
+        res = Moss.process(
+            text=self.MossTextInput.toPlainText(),
+            output_path=output_path,
+            mode=app_config.get_conflict_mode()
+        )
+        err, srt, saved_path = res
+        self.MossTextOutput.setPlainText(srt)
+
+        if err is ErrorCode.FileSkipped:
+            ui_utils.show_message_box(self, "提示", err.generic, QMessageBox.Icon.Information)
+        elif err.code:
+            ui_utils.show_message_box(self, "错误", err.generic, QMessageBox.Icon.Critical)
+        elif saved_path:
+            ui_utils.show_message_box(self, "成功", f"转换完成，已保存到 {saved_path}",
+                                      QMessageBox.Icon.Information)
+        else:
+            ui_utils.show_message_box(self, "成功", "转换完成", QMessageBox.Icon.Information)

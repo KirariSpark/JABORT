@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>406</width>
-    <height>394</height>
+    <width>626</width>
+    <height>603</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -267,6 +267,61 @@
           </size>
          </property>
         </spacer>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="Moss">
+      <attribute name="title">
+       <string>MOSS</string>
+      </attribute>
+      <attribute name="toolTip">
+       <string>将 MOSS Transcribe Diarize 输出的结构化文本转换为 SRT</string>
+      </attribute>
+      <layout class="QVBoxLayout" name="verticalLayout">
+       <item>
+        <widget class="QPlainTextEdit" name="MossTextInput">
+         <property name="placeholderText">
+          <string>MOSS 原始文本</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="MossControls">
+         <item>
+          <widget class="QPushButton" name="MossSaveCheck">
+           <property name="text">
+            <string>同时保存到：</string>
+           </property>
+           <property name="checkable">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLineEdit" name="MossSavePath"/>
+         </item>
+         <item>
+          <widget class="QPushButton" name="MossSavePathOpen">
+           <property name="text">
+            <string>打开</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="MossDoParse">
+           <property name="text">
+            <string>转换</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <widget class="QPlainTextEdit" name="MossTextOutput">
+         <property name="placeholderText">
+          <string>转换后的文本</string>
+         </property>
+        </widget>
        </item>
       </layout>
      </widget>
