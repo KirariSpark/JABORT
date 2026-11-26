@@ -277,20 +277,56 @@
       <attribute name="toolTip">
        <string>将 MOSS Transcribe Diarize 输出的结构化文本转换为 SRT</string>
       </attribute>
-      <layout class="QVBoxLayout" name="verticalLayout">
+      <layout class="QHBoxLayout" name="horizontalLayout_2">
        <item>
-        <widget class="QPlainTextEdit" name="MossTextInput">
-         <property name="placeholderText">
-          <string>MOSS 原始文本</string>
-         </property>
-        </widget>
+        <layout class="QVBoxLayout" name="MossLeftLayout">
+         <item>
+          <widget class="QPlainTextEdit" name="MossTextInput">
+           <property name="placeholderText">
+            <string>MOSS 原始文本</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPlainTextEdit" name="MossTextOutput">
+           <property name="placeholderText">
+            <string>转换后的文本</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
        </item>
        <item>
-        <layout class="QHBoxLayout" name="MossControls">
+        <layout class="QVBoxLayout" name="MossRightLayout">
+         <item>
+          <widget class="QPushButton" name="MossHelp">
+           <property name="text">
+            <string>？</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="MossSavePathLayout">
+           <item>
+            <widget class="QPushButton" name="MossSavePathOpen">
+             <property name="text">
+              <string>打开</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLineEdit" name="MossSavePath">
+             <property name="placeholderText">
+              <string>保存位置</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
          <item>
           <widget class="QPushButton" name="MossSaveCheck">
            <property name="text">
-            <string>同时保存到：</string>
+            <string>保存到文件</string>
            </property>
            <property name="checkable">
             <bool>true</bool>
@@ -298,12 +334,12 @@
           </widget>
          </item>
          <item>
-          <widget class="QLineEdit" name="MossSavePath"/>
-         </item>
-         <item>
-          <widget class="QPushButton" name="MossSavePathOpen">
+          <widget class="QPushButton" name="MossSpeakerCheck">
            <property name="text">
-            <string>打开</string>
+            <string>包含说话人</string>
+           </property>
+           <property name="checkable">
+            <bool>true</bool>
            </property>
           </widget>
          </item>
@@ -314,14 +350,20 @@
            </property>
           </widget>
          </item>
+         <item>
+          <spacer name="MossSpacer">
+           <property name="orientation">
+            <enum>Qt::Orientation::Vertical</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>20</width>
+             <height>40</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
         </layout>
-       </item>
-       <item>
-        <widget class="QPlainTextEdit" name="MossTextOutput">
-         <property name="placeholderText">
-          <string>转换后的文本</string>
-         </property>
-        </widget>
        </item>
       </layout>
      </widget>

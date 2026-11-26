@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'pagebyIAbR.ui'
+## Form generated from reading UI file 'pageniWUDQ.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.11.2
 ##
@@ -185,43 +185,68 @@ class Ui_TextProcWidget(object):
         self.TextProcChildTab.addTab(self.JsonSorter, "")
         self.Moss = QWidget()
         self.Moss.setObjectName(u"Moss")
-        self.verticalLayout = QVBoxLayout(self.Moss)
-        self.verticalLayout.setObjectName(u"verticalLayout")
+        self.horizontalLayout_2 = QHBoxLayout(self.Moss)
+        self.horizontalLayout_2.setObjectName(u"horizontalLayout_2")
+        self.MossLeftLayout = QVBoxLayout()
+        self.MossLeftLayout.setObjectName(u"MossLeftLayout")
         self.MossTextInput = QPlainTextEdit(self.Moss)
         self.MossTextInput.setObjectName(u"MossTextInput")
 
-        self.verticalLayout.addWidget(self.MossTextInput)
-
-        self.MossControls = QHBoxLayout()
-        self.MossControls.setObjectName(u"MossControls")
-        self.MossSaveCheck = QPushButton(self.Moss)
-        self.MossSaveCheck.setObjectName(u"MossSaveCheck")
-        self.MossSaveCheck.setCheckable(True)
-
-        self.MossControls.addWidget(self.MossSaveCheck)
-
-        self.MossSavePath = QLineEdit(self.Moss)
-        self.MossSavePath.setObjectName(u"MossSavePath")
-
-        self.MossControls.addWidget(self.MossSavePath)
-
-        self.MossSavePathOpen = QPushButton(self.Moss)
-        self.MossSavePathOpen.setObjectName(u"MossSavePathOpen")
-
-        self.MossControls.addWidget(self.MossSavePathOpen)
-
-        self.MossDoParse = QPushButton(self.Moss)
-        self.MossDoParse.setObjectName(u"MossDoParse")
-
-        self.MossControls.addWidget(self.MossDoParse)
-
-
-        self.verticalLayout.addLayout(self.MossControls)
+        self.MossLeftLayout.addWidget(self.MossTextInput)
 
         self.MossTextOutput = QPlainTextEdit(self.Moss)
         self.MossTextOutput.setObjectName(u"MossTextOutput")
 
-        self.verticalLayout.addWidget(self.MossTextOutput)
+        self.MossLeftLayout.addWidget(self.MossTextOutput)
+
+
+        self.horizontalLayout_2.addLayout(self.MossLeftLayout)
+
+        self.MossRightLayout = QVBoxLayout()
+        self.MossRightLayout.setObjectName(u"MossRightLayout")
+        self.MossHelp = QPushButton(self.Moss)
+        self.MossHelp.setObjectName(u"MossHelp")
+
+        self.MossRightLayout.addWidget(self.MossHelp)
+
+        self.MossSavePathLayout = QHBoxLayout()
+        self.MossSavePathLayout.setObjectName(u"MossSavePathLayout")
+        self.MossSavePathOpen = QPushButton(self.Moss)
+        self.MossSavePathOpen.setObjectName(u"MossSavePathOpen")
+
+        self.MossSavePathLayout.addWidget(self.MossSavePathOpen)
+
+        self.MossSavePath = QLineEdit(self.Moss)
+        self.MossSavePath.setObjectName(u"MossSavePath")
+
+        self.MossSavePathLayout.addWidget(self.MossSavePath)
+
+
+        self.MossRightLayout.addLayout(self.MossSavePathLayout)
+
+        self.MossSaveCheck = QPushButton(self.Moss)
+        self.MossSaveCheck.setObjectName(u"MossSaveCheck")
+        self.MossSaveCheck.setCheckable(True)
+
+        self.MossRightLayout.addWidget(self.MossSaveCheck)
+
+        self.MossSpeakerCheck = QPushButton(self.Moss)
+        self.MossSpeakerCheck.setObjectName(u"MossSpeakerCheck")
+        self.MossSpeakerCheck.setCheckable(True)
+
+        self.MossRightLayout.addWidget(self.MossSpeakerCheck)
+
+        self.MossDoParse = QPushButton(self.Moss)
+        self.MossDoParse.setObjectName(u"MossDoParse")
+
+        self.MossRightLayout.addWidget(self.MossDoParse)
+
+        self.MossSpacer = QSpacerItem(20, 40, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding)
+
+        self.MossRightLayout.addItem(self.MossSpacer)
+
+
+        self.horizontalLayout_2.addLayout(self.MossRightLayout)
 
         self.TextProcChildTab.addTab(self.Moss, "")
 
@@ -269,10 +294,13 @@ class Ui_TextProcWidget(object):
         self.TextProcChildTab.setTabToolTip(self.TextProcChildTab.indexOf(self.JsonSorter), QCoreApplication.translate("TextProcWidget", u"\u5c06JSON\u7684\u952e\u503c\u5bf9\u6309\u952e\u7684\u987a\u5e8f\u6392\u5e8f", None))
 #endif // QT_CONFIG(tooltip)
         self.MossTextInput.setPlaceholderText(QCoreApplication.translate("TextProcWidget", u"MOSS \u539f\u59cb\u6587\u672c", None))
-        self.MossSaveCheck.setText(QCoreApplication.translate("TextProcWidget", u"\u540c\u65f6\u4fdd\u5b58\u5230\uff1a", None))
-        self.MossSavePathOpen.setText(QCoreApplication.translate("TextProcWidget", u"\u6253\u5f00", None))
-        self.MossDoParse.setText(QCoreApplication.translate("TextProcWidget", u"\u8f6c\u6362", None))
         self.MossTextOutput.setPlaceholderText(QCoreApplication.translate("TextProcWidget", u"\u8f6c\u6362\u540e\u7684\u6587\u672c", None))
+        self.MossHelp.setText(QCoreApplication.translate("TextProcWidget", u"\uff1f", None))
+        self.MossSavePathOpen.setText(QCoreApplication.translate("TextProcWidget", u"\u6253\u5f00", None))
+        self.MossSavePath.setPlaceholderText(QCoreApplication.translate("TextProcWidget", u"\u4fdd\u5b58\u4f4d\u7f6e", None))
+        self.MossSaveCheck.setText(QCoreApplication.translate("TextProcWidget", u"\u4fdd\u5b58\u5230\u6587\u4ef6", None))
+        self.MossSpeakerCheck.setText(QCoreApplication.translate("TextProcWidget", u"\u5305\u542b\u8bf4\u8bdd\u4eba", None))
+        self.MossDoParse.setText(QCoreApplication.translate("TextProcWidget", u"\u8f6c\u6362", None))
         self.TextProcChildTab.setTabText(self.TextProcChildTab.indexOf(self.Moss), QCoreApplication.translate("TextProcWidget", u"MOSS", None))
 #if QT_CONFIG(tooltip)
         self.TextProcChildTab.setTabToolTip(self.TextProcChildTab.indexOf(self.Moss), QCoreApplication.translate("TextProcWidget", u"\u5c06 MOSS Transcribe Diarize \u8f93\u51fa\u7684\u7ed3\u6784\u5316\u6587\u672c\u8f6c\u6362\u4e3a SRT", None))

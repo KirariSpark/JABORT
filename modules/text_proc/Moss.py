@@ -77,12 +77,13 @@ def seconds_to_srt_timestamp(seconds: Decimal) -> str:
     return f"{hours:02d}:{minutes:02d}:{secs:02d},{milliseconds:03d}"
 
 
-def segments_to_srt(segments: Iterable[MossSegment]) -> str:
+def segments_to_srt(segments: Iterable[MossSegment], include_speaker: bool = True) -> str:
     """
     将片段列表转换为 SRT 文本
 
     Args:
         segments: 片段列表
+        include_speaker: 是否在字幕内容前保留说话人名称
 
     Returns:
         SRT 文本
@@ -91,20 +92,22 @@ def segments_to_srt(segments: Iterable[MossSegment]) -> str:
     for index, segment in enumerate(segments, start=1):
         start = seconds_to_srt_timestamp(segment.start)
         end = seconds_to_srt_timestamp(segment.end)
+        content = f"{segment.speaker}：{segment.content}" if include_speaker else segment.content
         blocks.append(
             f"{index}\n"
             f"{start} --> {end}\n"
-            f"{segment.speaker}：{segment.content}\n"
+            f"{content}\n"
         )
     return "\n".join(blocks)
 
 
-def convert(text: str) -> tuple[ErrorCode, str]:
+def convert(text: str, include_speaker: bool = True) -> tuple[ErrorCode, str]:
     """
     将 MOSS 结构化文本转换为 SRT 文本
 
     Args:
         text: MOSS 原始文本
+        include_speaker: 是否在字幕内容前保留说话人名称
 
     Returns:
         元组，第一项为错误码，第二项为 SRT 文本（失败时为空字符串）
@@ -119,7 +122,7 @@ def convert(text: str) -> tuple[ErrorCode, str]:
         logger.error(ErrorCode.InvalidFormat.format("未找到符合 MOSS 格式的片段"))
         return ErrorCode.InvalidFormat, ""
 
-    srt = segments_to_srt(segments)
+    srt = segments_to_srt(segments, include_speaker=include_speaker)
     logger.info(f"已转换 {len(segments)} 个片段")
     return ErrorCode.Success, srt
 
@@ -152,7 +155,8 @@ def save_srt(srt_text: str, output_path: str,
 
 
 def process(text: str, output_path: str | None = None,
-            mode: FileConflictMode = FileConflictMode.AddIndex) -> tuple[ErrorCode, str, str]:
+            mode: FileConflictMode = FileConflictMode.AddIndex,
+            include_speaker: bool = True) -> tuple[ErrorCode, str, str]:
     """
     转换 MOSS 文本，并按需保存为 SRT
 
@@ -160,11 +164,12 @@ def process(text: str, output_path: str | None = None,
         text: MOSS 原始文本
         output_path: 输出文件路径；为 None 时不保存，为空字符串时视为无效路径
         mode: 冲突处理模式
+        include_speaker: 是否在字幕内容前保留说话人名称
 
     Returns:
         元组，第一项为错误码，第二项为 SRT 文本，第三项为实际保存的文件路径
     """
-    err, srt = convert(text)
+    err, srt = convert(text, include_speaker=include_speaker)
     if err is not ErrorCode.Success:
         return err, "", ""
     if output_path is None:
@@ -174,6 +179,6 @@ def process(text: str, output_path: str | None = None,
     return err, srt, saved_path
 
 
-def main(text: str) -> tuple[ErrorCode, str]:
+def main(text: str, include_speaker: bool = True) -> tuple[ErrorCode, str]:
     """MOSS 转换入口，等同于 convert"""
-    return convert(text)
+    return convert(text, include_speaker=include_speaker)

@@ -35,6 +35,9 @@ class TextProcWidget(QWidget, Ui_TextProcWidget):
         ))
         self.MossSaveCheck.toggled.connect(self.set_moss_save_enabled)
         self.set_moss_save_enabled(self.MossSaveCheck.isChecked())
+        self.MossSpeakerCheck.setChecked(True)
+        self.MossSpeakerCheck.toggled.connect(self.moss_speaker_toggled)
+        self.MossHelp.clicked.connect(self.moss_help)
 
     def crop_text_run(self):
         res = CropText.crop_text_file(
@@ -73,12 +76,31 @@ class TextProcWidget(QWidget, Ui_TextProcWidget):
         self.MossSavePath.setEnabled(enabled)
         self.MossSavePathOpen.setEnabled(enabled)
 
+    def moss_speaker_toggled(self, checked: bool):
+        text = self.MossTextInput.toPlainText()
+        if not text.strip():
+            return
+        err, srt = Moss.convert(text, include_speaker=checked)
+        if err is ErrorCode.Success:
+            self.MossTextOutput.setPlainText(srt)
+
+    def moss_help(self):
+        ui_utils.show_message_box(
+            self, "帮助",
+            "将 MOSS Transcribe Diarize 输出的结构化文本转换为 SRT 字幕。\n\n"
+            "输入格式：[开始时间][说话人]内容[结束时间]，时间单位为秒。\n\n"
+            "勾选“包含说话人”会在字幕内容前保留说话人名称；\n"
+            "勾选“保存到文件”并选择保存位置后，转换结果会同时写入 SRT 文件。",
+            QMessageBox.Icon.Information
+        )
+
     def moss_do_parse(self):
         output_path = self.MossSavePath.text().strip() if self.MossSaveCheck.isChecked() else None
         res = Moss.process(
             text=self.MossTextInput.toPlainText(),
             output_path=output_path,
-            mode=app_config.get_conflict_mode()
+            mode=app_config.get_conflict_mode(),
+            include_speaker=self.MossSpeakerCheck.isChecked()
         )
         err, srt, saved_path = res
         self.MossTextOutput.setPlainText(srt)
